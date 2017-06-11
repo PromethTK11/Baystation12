@@ -21,17 +21,17 @@
 						)
 
 /datum/job/assistant
-	title = "Passager"
-	supervisors = "tout le monde"
+	title = "Pasajero"
+	supervisors = "todo el mundo"
 	minimal_player_age = 14
 	economic_modifier = 3
 	ideal_character_age = 21
 	alt_titles = list(
-		"Actionnaire",
-		"Journaliste",
-		"Visiteur",
-		"Stagiaire",
-		"Etudiant",
+		"Accionista",
+		"Periodista",
+		"Visitante",
+		"Aprendiz",
+		"Estudiante",
 		)
 	allowed_branches = list(
 		/datum/mil_branch/administration,
@@ -40,13 +40,13 @@
 	)
 
 /datum/job/captain
-	title = "Directeur General"
-	supervisors = "NanoTrasen et les Actionnaires"
+	title = "Director General"
+	supervisors = "NanoTrasen y los Accionistas"
 	minimal_player_age = 41
 	economic_modifier = 15
 	ideal_character_age = 65
 	alt_titles = list(
-		"Directeur Executif",
+		"Director Ejecutivo",
 		)
 	outfit_type = /decl/hierarchy/outfit/job/dreyfus/directeur
 	allowed_branches = list(
@@ -54,16 +54,16 @@
 	)
 
 /datum/job/hop
-	title = "Directeur Adjoint"
-	supervisors = "le Directeur General"
+	title = "Director Adjunto"
+	supervisors = "El director general"
 	minimal_player_age = 31
 	economic_modifier = 12
 	ideal_character_age = 45
 	total_positions = 2
 	spawn_positions = 2
 	alt_titles = list(
-		"Directeur R.H.",
-		"Directeur Finances",
+		"Director R.H.",
+		"Director de Finanzas",
 		)
 	outfit_type = /decl/hierarchy/outfit/job/dreyfus/adjoint
 	allowed_branches = list(
@@ -71,8 +71,8 @@
 	)
 
 /datum/job/employe
-	title = "Employe Administratif"
-	supervisors = "les Directeurs"
+	title = "Empleado Administrativo"
+	supervisors = "los directores"
 	minimal_player_age = 21
 	economic_modifier = 8
 	ideal_character_age = 30
@@ -83,9 +83,9 @@
 	department_flag = COM
 	department = "Command"
 	alt_titles = list(
-		"Gestionnaire",
-		"Secretaire",
-		"Controleur",
+		"Administrador",
+		"Secretario",
+		"Controlador",
 		)
 	outfit_type = /decl/hierarchy/outfit/job/dreyfus/employe
 	allowed_branches = list(
@@ -96,15 +96,15 @@
 	minimal_access = list(access_lawyer, access_heads)
 
 /datum/job/rd
-	title = "Superviseur"
-	supervisors = "le Directeur General"
+	title = "Supervisor"
+	supervisors = "el director general"
 	minimal_player_age = 21
 	economic_modifier = 9
 	ideal_character_age = 40
 	total_positions = 1
 	spawn_positions = 1
 	alt_titles = list(
-		"Directeur Specialise."
+		"Director Especializado"
 		)
 	allowed_branches = list(
 		/datum/mil_branch/administration,
@@ -125,35 +125,35 @@
 			access_RC_announce, access_keycard_auth, access_tcomsat, access_gateway, access_xenoarch, access_network, access_rd, access_research, access_medical, access_morgue, access_medical_equip)
 
 /datum/job/scientist
-	title = "Scientifique"
-	supervisors = "le Superviseur"
+	title = "Científico"
+	supervisors = "el supervisor"
 	minimal_player_age = 19
 	economic_modifier = 8
 	ideal_character_age = 30
 	total_positions = 3
 	spawn_positions = 3
 	alt_titles = list(
-		"Phyisicien",
-		"Roboticien",
-		"Chimiste",
+		"Físico",
+		"Robotista",
+		"Químico",
 		)
 	allowed_branches = list(
 		/datum/mil_branch/contractuel
 	)
 
 /datum/job/doctor
+	title = "Médico"
 	selection_color = "#633d63"
-	title = "Medecin"
-	supervisors = "le Superviseur"
+	supervisors = "el supervisor"
 	minimal_player_age = 19
 	economic_modifier = 8
 	ideal_character_age = 30
 	total_positions = 3
 	spawn_positions = 3
 	alt_titles = list(
-		"Chirurgien",
-		"Infirmier",
-		"Biologiste",
+		"Cirujano",
+		"Enfermero",
+		"Biologo",
 		)
 	allowed_branches = list(
 		/datum/mil_branch/contractuel
@@ -161,15 +161,15 @@
 
 /datum/job/hos
 	title = "Marshall"
-	supervisors = "votre Compagnie"
+	supervisors = "su empresa"
 	minimal_player_age = 19
 	economic_modifier = 10
 	ideal_character_age = 30
 	total_positions = 1
 	spawn_positions = 1
 	alt_titles = list(
-		"Responsable de la Securite",
-		"Mercenaire",
+		"Responsable de Seguridad",
+		"Mercenario",
 		)
 	allowed_branches = list(
 		/datum/mil_branch/contractuel
@@ -177,16 +177,16 @@
 
 /datum/job/qm
 	selection_color = "#3d3315"
-	title = "Contremaitre"
-	supervisors = "le Directeur General"
+	title = "Contramaestre"
+	supervisors = "el director general"
 	minimal_player_age = 21
 	economic_modifier = 7
 	ideal_character_age = 30
 	total_positions = 1
 	spawn_positions = 2
 	alt_titles = list(
-		"Directeur de Production",
-		"Coordinateur de Production",
+		"Director de Produccion",
+		"Coordinador de Produccion",
 		)
 	allowed_branches = list(
 		/datum/mil_branch/administration,
@@ -195,16 +195,16 @@
 	)
 
 /datum/job/engineer
-	title = "Ingenieur"
-	supervisors = "le Contremaitre"
+	title = "Ingeniero"
+	supervisors = "el contramaestre"
 	minimal_player_age = 16
 	economic_modifier = 5
 	ideal_character_age = 21
 	total_positions = 3
 	spawn_positions = 3
 	alt_titles = list(
-		"Mecanicien",
-		"Technicien Machinerie",
+		"Mecanico",
+		"Técnico de Maquinaria",
 		)
 	outfit_type = /decl/hierarchy/outfit/job/dreyfus/inge/inge
 	allowed_branches = list(
@@ -216,16 +216,16 @@
 
 /datum/job/mining
 	selection_color = "#7c6a2e"
-	title = "Mineur"
-	supervisors = "le Contremaitre"
+	title = "Minero"
+	supervisors = "el contramaestre"
 	minimal_player_age = 16
 	economic_modifier = 2
 	ideal_character_age = 21
 	total_positions = 2
 	spawn_positions = 2
 	alt_titles = list(
-		"Raffineur",
-		"Technicien Minier",
+		"Refinador",
+		"Técnico de Minería",
 		)
 	allowed_branches = list(
 		/datum/mil_branch/ouvrier
@@ -235,16 +235,16 @@
 
 /datum/job/cargo_tech
 	selection_color = "#7c6a2e"
-	title = "Manutentionnaire"
-	supervisors = "le Contremaitre"
+	title = "Técnico de Cargamento"
+	supervisors = "el contramaestre"
 	minimal_player_age = 16
 	economic_modifier = 2
 	ideal_character_age = 21
 	total_positions = 2
 	spawn_positions = 2
 	alt_titles = list(
-		"Technicien Logistique",
-		"Prepose au Fret",
+		"Cargador",
+		"Operador de Carga",
 		)
 	allowed_branches = list(
 		/datum/mil_branch/ouvrier
@@ -254,8 +254,8 @@
 
 /datum/job/ouvrier
 	selection_color = "#7c6a2e"
-	title = "Ouvrier de Production"
-	supervisors = "le Contremaitre"
+	title = "Obrero"
+	supervisors = "el contramaestre"
 	minimal_player_age = 16
 	economic_modifier = 2
 	ideal_character_age = 21
@@ -265,8 +265,8 @@
 	department_flag = SUP
 	department = "Supply"
 	alt_titles = list(
-		"Faconneur",
-		"Ouvrier Polyvalent",
+		"Moldeador",
+		"Obrero polivalente",
 		)
 	outfit_type = /decl/hierarchy/outfit/job/dreyfus/ouvrier
 	allowed_branches = list(
@@ -277,8 +277,8 @@
 	minimal_access = list(access_cargo, access_maint_tunnels)
 
 /datum/job/chef
-	title = "Cuisinier"
-	supervisors = "les Directeurs"
+	title = "Cocinero"
+	supervisors = "los directores y sus clientes"
 	minimal_player_age = 16
 	economic_modifier = 4
 	ideal_character_age = 21
@@ -293,30 +293,30 @@
 	)
 
 /datum/job/chaplain
-	title = "Aumonier"
-	supervisors = "les Directeurs"
+	title = "Capellan"
+	supervisors = "los directores"
 	minimal_player_age = 21
 	economic_modifier = 6
 	ideal_character_age = 30
 	total_positions = 1
 	spawn_positions = 1
 	alt_titles = list(
-		"Psychologue",
+		"Psicologo",
 		)
 	allowed_branches = list(
 		/datum/mil_branch/contractuel
 	)
 
 /datum/job/janitor
-	title = "Concierge"
-	supervisors = "le Contremaitre"
+	title = "Conserje"
+	supervisors = "el contramaestre"
 	minimal_player_age = 16
 	economic_modifier = 2
 	ideal_character_age = 21
 	total_positions = 1
 	spawn_positions = 1
 	alt_titles = list(
-		"Technicien de Surface",
+		"Técnico de sanitizacion",
 		)
 	allowed_branches = list(
 		/datum/mil_branch/ouvrier
@@ -326,5 +326,5 @@
 	title = "Cyborg"
 	alt_titles = list(
 		"Robot",
-		"Android",
+		"Androide",
 		)

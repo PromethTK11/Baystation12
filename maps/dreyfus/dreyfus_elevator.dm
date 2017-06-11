@@ -5,7 +5,7 @@
 	lift_size_y = 3
 
 /obj/turbolift_map_holder/dreyfus/freight_elevator
-	name = "Dreyfus turbolift map placeholder"
+	name = "Placeholder del mapa para el ascensor"
 	dir = EAST
 	areas_to_use = list(
 		/area/turbolift/engi,

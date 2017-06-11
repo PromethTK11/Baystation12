@@ -1,9 +1,9 @@
-var/const/NETWORK_COUPOLE      = "Coupole"
-var/const/NETWORK_ADMINISTRATION      = "Administration"
-var/const/NETWORK_RESIDENTIELLE     = "Residentielle"
-var/const/NETWORK_INDUSTRIELLE  = "Industrielle"
-var/const/NETWORK_INGENIERIE  = "Ingenierie"
-var/const/NETWORK_SYNTHETIQUE  = "Synthetique"
+var/const/NETWORK_COUPOLE      = "Cupula"
+var/const/NETWORK_ADMINISTRATION      = "Administracion"
+var/const/NETWORK_RESIDENTIELLE     = "Residencial"
+var/const/NETWORK_INDUSTRIELLE  = "Industrial"
+var/const/NETWORK_INGENIERIE  = "Ingenieria"
+var/const/NETWORK_SYNTHETIQUE  = "Sinteticos"
 
 /datum/map/dreyfus
 	// Networks that will show up as options in the camera monitor program

@@ -3,13 +3,13 @@ datum/shuttle/multi_shuttle/rescue
 	warmup_time = 0
 	origin = /area/shuttle/lavalette/start
 	interim = /area/shuttle/lavalette/transit
-	start_location = "Espace de Patrouille"
+	start_location = "Espacio de Patrulla" /////////???????????????? -Sansaur
 	destinations = list(
-		"Proche de la Coupole" = /area/shuttle/lavalette/coupole,
-		"Au sas de Xenoarcheologie" = /area/shuttle/lavalette/xeno,
-		"Pres de l'acces Residentiel" = /area/shuttle/lavalette/residentiel,
+		"Aproximarse a la cupula" = /area/shuttle/lavalette/coupole,
+		"Exclusa de xenoarqueología" = /area/shuttle/lavalette/xeno,
+		"Acceso a residencial" = /area/shuttle/lavalette/residentiel,
 		)
-	announcer = "CRV La Valette"
+	announcer = "CRV La Veleta"
 
 /datum/shuttle/multi_shuttle/rescue/New()
 	arrival_message = "Attention, [using_map.station_short], there's a small patrol craft headed your way, it flashed us Asset Protection codes and we let it pass. You've got guests on the way."
@@ -42,27 +42,27 @@ datum/shuttle/multi_shuttle/rescue
 	warmup_time = 0
 	origin = /area/shuttle/merc/start
 	interim = /area/shuttle/merc/transit
-	start_location = "Base Mercenaire"
+	start_location = "Base Mercenaria"
 	destinations = list(
-		"Dock Station" = /area/shuttle/merc/station,
-		"Proche de la Coupole" = /area/shuttle/merc/coupole,
-		"Au sas de Minage" = /area/shuttle/merc/minage,
-		"Pres de l'acces Residentiel" = /area/shuttle/merc/residentiel,
+		"Puerto de la estacion" = /area/shuttle/merc/station,
+		"Aproximarse a la cupula" = /area/shuttle/merc/coupole,
+		"Esclusa de minería" = /area/shuttle/merc/minage,
+		"Acceso residencial" = /area/shuttle/merc/residentiel,
 		)
 	docking_controller_tag = "ship_merc"
 	destination_dock_targets = list(
-		"Base Mercenaire" = "dock_merc",
-		"Dock Station" = "dock1",
+		"Base mercenaria" = "dock_merc",
+		"Puerto de la estacion" = "dock1",
 		)
-	announcer = "Chasseur Huon"
+	announcer = "Cazador Huon"
 
 /datum/shuttle/multi_shuttle/mercenary/New()
-	arrival_message = "Attention, [using_map.station_short], you have a large signature approaching the station - looks unarmed to surface scans. We're too far out to intercept - brace for visitors."
-	departure_message = "Your visitors are on their way out of the system, [using_map.station_short], burning delta-v like it's nothing. Good riddance."
+	arrival_message = "Atencion, [using_map.station_short], hemos detectado una señal de una nave aproximandose a la estacion, los escaneos revelan que va desarmada, preparaos para recibir visita."
+	departure_message = "Vuestros visitantes se marchan del sistema, [using_map.station_short], estan quemando combustible del caro como si no fuera nada, hasta nunca, visitantes."
 	..()
 
 /datum/shuttle/ferry/escape_pod/escape_pod_one
-	name = "Escape Pod 1"
+	name = "Capusla de escape nº1"
 	location = 0
 	warmup_time = 0
 	area_station = /area/shuttle/escape_pod1/station

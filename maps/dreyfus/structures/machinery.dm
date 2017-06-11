@@ -2,7 +2,7 @@
 	fabricator_tag = "Entretien SSNI Dreyfus"
 
 /obj/machinery/drone_fabricator/dreyfus/adv
-	name = "advanced drone fabricator"
+	name = "Fabrica de Drones avanzada"
 	fabricator_tag = "Entretien SSNI Dreyfus"
 	drone_type = /mob/living/silicon/robot/drone/construction
 

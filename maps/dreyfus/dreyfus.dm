@@ -1,11 +1,11 @@
 #if !defined(USING_MAP_DATUM)
 
-	#include "dreyfus-01.dmm" // - Abandonné - IA(?), traitement des déchets
-	#include "dreyfus-02.dmm" // - Ingénierie - Moteur. Lifesupport.
-	#include "dreyfus-03.dmm" // - Cargo - Ouvrier, Production et logistique
-	#include "dreyfus-04.dmm" // - Résidentiel - Clinique, bar et good vibes
-	#include "dreyfus-05.dmm" // - Bureaux - Personnel administratif et direction
-	#include "dreyfus-06.dmm" // - Coupole - Jardin, réception des invités
+	#include "dreyfus-01.dmm" // - Sotano - IA y Cyborgs
+	#include "dreyfus-02.dmm" // - Ingeniería - Motor. Soporte vital.
+	#include "dreyfus-03.dmm" // - Cargo - Cargo, Minería, I+D, Robotica
+	#include "dreyfus-04.dmm" // - Residencial - Medbay, cafetería, gimnasio y otras cosas
+	#include "dreyfus-05.dmm" // - Oficinas - Zona administrativa y seguridad
+	#include "dreyfus-06.dmm" // - Cupula - Jardines y recepcion de invitados
 	#include "dreyfus-07.dmm"
 	#include "dreyfus-08.dmm"
 
@@ -39,6 +39,8 @@
 
 	#include "../shared/exodus_torch/_include.dm"
 
+	// Can I ask why are we importing several objects with information for lobby music separated into various archives?
+	// Why not just a "../../code/modules/lobby_music/lobby_music.dm" with all the info in it? - Sansaur
 	#include "../../code/modules/lobby_music/absconditus.dm"
 	#include "../../code/modules/lobby_music/clouds_of_fire.dm"
 	#include "../../code/modules/lobby_music/endless_space.dm"

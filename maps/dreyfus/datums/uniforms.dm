@@ -1,5 +1,5 @@
 /decl/hierarchy/outfit/job/dreyfus/directeur
-	name = OUTFIT_JOB_NAME("Directeur Executif")
+	name = OUTFIT_JOB_NAME("Director Ejecutivo")
 	l_ear = /obj/item/device/radio/headset/heads/captain
 	uniform = /obj/item/clothing/under/rank/internalaffairs/plain/nt
 	suit = /obj/item/clothing/suit/storage/toggle/internalaffairs
@@ -11,7 +11,7 @@
 	gloves = /obj/item/clothing/gloves/white
 
 /decl/hierarchy/outfit/job/dreyfus/adjoint
-	name = OUTFIT_JOB_NAME("Directeur Adjoint")
+	name = OUTFIT_JOB_NAME("Director Adjunto")
 	l_ear = /obj/item/device/radio/headset/heads/cmo
 	uniform = /obj/item/clothing/under/rank/internalaffairs/plain/nt
 	suit = /obj/item/clothing/suit/storage/toggle/internalaffairs
@@ -21,7 +21,7 @@
 	pda_type = /obj/item/device/pda/heads/hop
 
 /decl/hierarchy/outfit/job/dreyfus/employe
-	name = OUTFIT_JOB_NAME("Employe Administratif")
+	name = OUTFIT_JOB_NAME("Empleado Administrativo")
 	l_ear = /obj/item/device/radio/headset/headset_com
 	uniform = /obj/item/clothing/under/rank/internalaffairs/plain/nt
 	shoes = /obj/item/clothing/shoes/black
@@ -41,7 +41,7 @@
 	flags = OUTFIT_HAS_BACKPACK|OUTFIT_EXTENDED_SURVIVAL
 
 /decl/hierarchy/outfit/job/dreyfus/inge/inge
-	name = OUTFIT_JOB_NAME("Ingenieur")
+	name = OUTFIT_JOB_NAME("Ingeniero")
 	head = /obj/item/clothing/head/hardhat
 	uniform = /obj/item/clothing/under/hazard
 	r_pocket = /obj/item/device/t_scanner
@@ -49,14 +49,14 @@
 	pda_type = /obj/item/device/pda/engineering
 
 /decl/hierarchy/outfit/job/dreyfus/ouvrier
-	name = OUTFIT_JOB_NAME("Ouvrier")
+	name = OUTFIT_JOB_NAME("Obrero")
 	uniform = /obj/item/clothing/under/overalls
 	id_type = /obj/item/weapon/card/id/cargo/ouvrier
 	pda_type = /obj/item/device/pda/cargo
 	l_ear = /obj/item/device/radio/headset/headset_cargo
 
 /decl/hierarchy/outfit/job/science/superviseur
-	name = OUTFIT_JOB_NAME("Superviseur")
+	name = OUTFIT_JOB_NAME("Supervisor")
 	l_ear = /obj/item/device/radio/headset/heads/rd
 	r_ear = /obj/item/device/radio/headset/heads/cmo
 	uniform = /obj/item/clothing/under/rank/research_director
