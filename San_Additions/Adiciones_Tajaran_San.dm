@@ -146,9 +146,16 @@ Possibilites:
 		adjustHalLoss(3)
 		to_chat(src, "<span class='info'> [src] frontflips towards [Casilla3]!.</span>")
 
+	// Si no funciona lo del "sleep(1)" cambiarlo por poner únicamente
+	// src.forceMove(Casilla3)
+	src.forceMove(Casilla1)
+	sleep(1)
+	src.forceMove(Casilla2)
+	sleep(1)
 	src.forceMove(Casilla3)
 	last_special = world.time + (Tiempo_CD SECONDS)
 	src.spin(2,0.6)	// Un giro de poca duración muy rápido
+
 	dejar_rastro(Casilla1)
 	dejar_rastro(Casilla2)
 	animate_spin(src, "L", 1.3) // Flip de Goonstation
@@ -268,3 +275,78 @@ Un handle_enviroment_special con una variable nueva dentro de la especie.
 
 			H.sleeping += sleeping_time
 
+
+
+/*
+El frontflip, pero usando solamente funciones normales del código
+
+*/
+
+/mob/living/carbon/human/proc/lame_frontflip()
+	set category = "Abilities"
+	set name = "Front Flip Lame"
+	set desc = "Jump baby jump!."
+
+	var/Tiempo_CD = 3
+	// Special cooldown
+	if(last_special > world.time)
+		to_chat(src, "<span class='warning'> You've jumped too soon ago!.</span>")
+		return
+	// Incapacitated / Buckled
+	if(incapacitated(INCAPACITATION_DISABLED) || buckled || pinned.len)
+		to_chat(src, "<span class='warning'> You cannot jump like this!.</span>")
+		return
+
+	var/turf/Casilla1 = get_step(src,src.dir)
+	var/turf/Casilla2 = get_step(Casilla1,src.dir)
+	var/turf/Casilla3 = get_step(Casilla2,src.dir)
+
+	src.species.slowdown = -99
+	src.Move(Casilla1)
+	src.Move(Casilla2)
+	src.Move(Casilla3)
+	playsound(src.loc, 'sound/weapons/towelwipe.ogg', 50, 1)
+	adjustHalLoss(3)
+	to_chat(src, "<span class='info'> [src] frontflips towards [Casilla3]!.</span>")
+	src.species.slowdown = initial(src.species.slowdown)
+	last_special = world.time + (Tiempo_CD SECONDS)
+	// Todos los efectos visuales eliminados
+	//src.spin(2,0.6)	// Un giro de poca duración muy rápido
+	//dejar_rastro(Casilla1)
+	//dejar_rastro(Casilla2)
+	//animate_spin(src, "L", 1.3) // Flip de Goonstation
+
+/*
+El frontflip, pero usando solamente funciones normales del código
+
+*/
+
+/mob/living/carbon/human/proc/lamer_frontflip()
+	set category = "Abilities"
+	set name = "Front Flip Lamerrrr"
+	set desc = "Jump baby jump!."
+
+	var/Tiempo_CD = 3
+	// Special cooldown
+	if(last_special > world.time)
+		to_chat(src, "<span class='warning'> You've jumped too soon ago!.</span>")
+		return
+	// Incapacitated / Buckled
+	if(incapacitated(INCAPACITATION_DISABLED) || buckled || pinned.len)
+		to_chat(src, "<span class='warning'> You cannot jump like this!.</span>")
+		return
+
+	var/turf/Casilla1 = get_step(src,src.dir)
+	var/turf/Casilla2 = get_step(Casilla1,src.dir)
+	var/turf/Casilla3 = get_step(Casilla2,src.dir)
+
+	src.throw_at(get_step(get_turf(Casilla3),get_turf(src)), 3, 1, src)
+	playsound(src.loc, 'sound/weapons/towelwipe.ogg', 50, 1)
+	adjustHalLoss(3)
+	to_chat(src, "<span class='info'> [src] frontflips towards [Casilla3]!.</span>")
+	last_special = world.time + (Tiempo_CD SECONDS)
+	// Todos los efectos visuales eliminados
+	//src.spin(2,0.6)	// Un giro de poca duración muy rápido
+	//dejar_rastro(Casilla1)
+	//dejar_rastro(Casilla2)
+	//animate_spin(src, "L", 1.3) // Flip de Goonstation
