@@ -107,6 +107,9 @@ var/global/list/valid_bloodtypes = list("A+", "A-", "B+", "B-", "AB+", "AB-", "O
 	if(has_flag(mob_species, HAS_SKIN_TONE))
 		. += "Skin Tone: <a href='?src=\ref[src];skin_tone=1'>[-pref.s_tone + 35]/220</a><br>"
 	. += "Needs Glasses: <a href='?src=\ref[src];disabilities=[NEARSIGHTED]'><b>[pref.disabilities & NEARSIGHTED ? "Yes" : "No"]</b></a><br>"
+	// AÑADIDO ESTO - SANSAUR - E inmediatamente comentado :^)
+//	if(has_flag(mob_species, IS_TAJARA))
+//		. += "Fur type: <a href='?src=\ref[src];fur_type=1'>Long</a><br>"
 	. += "Limbs: <a href='?src=\ref[src];limbs=1'>Adjust</a> <a href='?src=\ref[src];reset_limbs=1'>Reset</a><br>"
 	. += "Internal Organs: <a href='?src=\ref[src];organs=1'>Adjust</a><br>"
 
@@ -353,6 +356,18 @@ var/global/list/valid_bloodtypes = list("A+", "A-", "B+", "B-", "AB+", "AB-", "O
 		if(new_s_tone && has_flag(mob_species, HAS_SKIN_TONE) && CanUseTopic(user))
 			pref.s_tone = 35 - max(min( round(new_s_tone), 220),1)
 			return TOPIC_REFRESH_UPDATE_PREVIEW
+
+	// AÑADIDO ESTO - SANSAUR - E inmediatamente comentado :^)
+	/*
+	else if(href_list["fur_type"])
+		// Double Check
+		if(!has_flag(mob_species, IS_TAJARA))
+			return TOPIC_NOACTION
+		var/new_s_tone = input(user, "Choose your character's fur type:", "Character Preference", (-pref.s_tone) + 35)  as num|null
+		if(new_s_tone && has_flag(mob_species, HAS_SKIN_TONE) && CanUseTopic(user))
+			pref.s_tone = 35 - max(min( round(new_s_tone), 220),1)
+			return TOPIC_REFRESH_UPDATE_PREVIEW
+	*/
 
 	else if(href_list["skin_color"])
 		if(!has_flag(mob_species, HAS_SKIN_COLOR))

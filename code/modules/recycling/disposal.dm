@@ -144,6 +144,10 @@
 // mouse drop another mob or self
 //
 /obj/machinery/disposal/MouseDrop_T(mob/target, mob/user)
+	InsertMob(target,user)
+
+// Separating the MouseDrop_T interaction to a different proc - Sansaur
+/obj/machinery/disposal/proc/InsertMob(mob/target, mob/user)
 	if(user.stat || !user.canmove || !istype(target))
 		return
 	if(target.buckled || get_dist(user, src) > 1 || get_dist(user, target) > 1)
