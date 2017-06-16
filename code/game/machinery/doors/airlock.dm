@@ -643,6 +643,7 @@ About the new airlock wires panel:
 		if("deny")
 			if(density && src.arePowerSystemsOn())
 				flick("door_deny", src)
+				playsound(src.loc, 'sound/machines/Custom_deny.ogg', 50, 0)
 				if(secured_wires)
 					playsound(src.loc, open_failure_access_denied, 50, 0)
 	return

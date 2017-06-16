@@ -77,6 +77,7 @@
 /obj/machinery/door/blast/proc/force_open()
 	src.operating = 1
 	flick(icon_state_opening, src)
+	playsound(src.loc, 'sound/machines/Custom_blastdooropen.ogg', 65, 0)
 	src.set_density(0)
 	update_nearby_tiles()
 	src.update_icon()
@@ -92,6 +93,7 @@
 	src.operating = 1
 	src.layer = closed_layer
 	flick(icon_state_closing, src)
+	playsound(src.loc, 'sound/machines/Custom_blastdoorclose.ogg', 65, 0)
 	src.set_density(1)
 	update_nearby_tiles()
 	src.update_icon()

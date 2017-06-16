@@ -327,11 +327,24 @@
 	name = "Laboratorio de anomalías"
 	icon_state = "anomaly"
 
+/area/dreyfus/cargo/industrie/raffinerie/avantposte
+	name = "Puesto de Avanzada"
+	icon_state = "mining"
+
 /area/dreyfus/cargo/maintenance
 	icon_state = "fmaint"
 	flags = AREA_RAD_SHIELDED
 	sound_env = TUNNEL_ENCLOSED
 	turf_initializer = /decl/turf_initializer/maintenance
+
+/area/dreyfus/cargo/industrie/raffinerie/avantposte/solar
+	name = "Paneles Traseros"
+	icon_state = "panelsA"
+	flags = AREA_EXTERNAL
+	requires_power = 1
+	always_unpowered = 1
+	has_gravity = FALSE
+	base_turf = /turf/space
 
 
 //Pont ingenierie
