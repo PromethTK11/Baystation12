@@ -2400,6 +2400,5 @@
 #include "San_Additions\Parallax\define.dm"
 #include "San_Additions\Parallax\parallax.dm"
 #include "San_Additions\Parallax\parallax_archivos_secundarios.dm"
-#include "San_Additions\Parallax\shadow.dm"
 #include "~code\global_init.dm"
 // END_INCLUDE

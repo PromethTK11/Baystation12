@@ -124,8 +124,19 @@ Possibilites:
 		// Muy poco daño por saltar sin armadura pesada y que no te bloqueen
 		adjustHalLoss(3)
 		to_chat(src, "<span class='info'> [src] frontflips towards [Casilla]!.</span>")
+
+	// Si no funciona lo del "sleep(1)" cambiarlo por poner únicamente
+	// src.forceMove(Casilla3)
+	src.forceMove(Casilla1)
+	sleep(1)
+	src.forceMove(Casilla2)
+	sleep(1)
+	src.forceMove(Casilla3)
 	last_special = world.time + (Tiempo_CD SECONDS)
 	src.spin(2,0.6)	// Un giro de poca duración muy rápido
+
+	dejar_rastro(Casilla1)
+	dejar_rastro(Casilla2)
 	animate_spin(src, "L", 1.3) // Flip de Goonstation
 
 // ¡Una nueva proc para los disposals para que el Tajaran pueda saltar adentro!
@@ -254,4 +265,3 @@ Añadimos bastantes variables adicionales a la especie Tajaran
 				C.show_message("<span class=warning> [H] falls flat onto [H.loc] and begins to sleep soundly </span>")
 
 			H.sleeping += sleeping_time
-
