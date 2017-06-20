@@ -152,6 +152,7 @@
 	return ..() && R.braintype
 
 /datum/follow_holder/robot/get_suffix(var/mob/living/silicon/robot/R)
+	//(/obj/item/weapon/robot_module/medihound).name - Un runtime que hay que ver que es - Sansaur
 	suffix = "\[[R.braintype]\][R.module ? " \[[R.module.name]\]" : ""]"
 	return ..()
 
