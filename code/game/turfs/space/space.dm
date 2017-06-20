@@ -11,9 +11,10 @@
 
 /turf/space/New()
 	if((icon_state == "0") && (!keep_sprite))
-
+		icon_state = "white"	// Esto es importante que sea "white" para el Parallax
 	update_starlight()
 	..()
+
 
 /turf/space/initialize()
 	..()

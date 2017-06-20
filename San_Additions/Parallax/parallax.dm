@@ -14,6 +14,7 @@
 		//icon = 'parallax.dmi'	// Quitar esto
 		//icon_state = "space"	// Quitar esto
 		//image(icon,loc,icon_state,layer,dir)
+		image = image('parallax.dmi', src, "desat")
 		image.invisibility = 0
 		update()
 
