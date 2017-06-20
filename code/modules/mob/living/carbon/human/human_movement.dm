@@ -1,3 +1,7 @@
+/*
+Descomentar esto si no se hace lo de las armaduras
+- Sansaur
+
 /mob/living/carbon/human/movement_delay()
 	var/tally = ..()
 
@@ -58,7 +62,7 @@
 		tally = 0
 
 	return (tally+config.human_delay)
-
+*/
 /mob/living/carbon/human/Allow_Spacemove(var/check_drift = 0)
 	//Can we act?
 	if(restrained())	return 0

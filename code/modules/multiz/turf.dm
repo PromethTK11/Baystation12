@@ -17,7 +17,7 @@
 	name = "open space"
 	icon = 'icons/turf/space.dmi'
 	icon_state = ""
-	plane = SPACE_PLANE
+	plane = SPACE_PLANE	// Para el Parallax tiene que ser OPENSPACE_PLANE (? Probando) - Sansaur || Si se deja esto como SPACE_PLANE estará debajo del efecto Parallax
 	density = 0
 	pathweight = 100000 //Seriously, don't try and path over this one numbnuts
 

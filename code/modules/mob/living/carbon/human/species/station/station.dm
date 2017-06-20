@@ -103,7 +103,7 @@
 	name_language = LANGUAGE_SIIK_MAAS
 	health_hud_intensity = 1.75
 
-	// Aï¿½ADIDO ESTO - SANSAUR
+	// AÑADIDO ESTO - SANSAUR
 	inherent_verbs = list(
 		/mob/living/carbon/human/proc/frontflip
 		)
@@ -136,8 +136,9 @@
 
 	reagent_tag = IS_TAJARA
 
-	// Cambiando el lï¿½mite de discomfort de los Tajaran para el calor - Sansaur
+	// Cambiando el límite de discomfort de los Tajaran para el calor - Sansaur
 	// El nivel original era 292
+	heat_discomfort_level = 312
 	heat_discomfort_strings = list(
 		"Your fur prickles in the heat.",
 		"You feel uncomfortably warm.",

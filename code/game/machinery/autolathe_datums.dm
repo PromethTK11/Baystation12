@@ -1,3 +1,10 @@
+/*
+
+COMENTANDO TODO ESTO PORQUE SE DEFINEN NUEVAS RECETAS EN EL PORT DE EUROPA
+
+Descomentado porque no vamos a usar el port de europa
+
+*/
 /var/global/list/autolathe_recipes
 /var/global/list/autolathe_categories
 

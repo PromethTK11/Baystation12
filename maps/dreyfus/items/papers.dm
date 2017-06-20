@@ -1,6 +1,6 @@
 /obj/item/weapon/paper/objectifs_dreyfus
-	name = "Requerimientos de producción"
-	info = "Requirimientos de producción emitidos por los accionistas :<br><br>"
+	name = "Requerimientos de produccion"
+	info = "Requirimientos de produccion emitidos por los accionistas :<br><br>"
 	icon_state = "paper_words"
 
 /obj/item/weapon/paper/objectifs_dreyfus/New()

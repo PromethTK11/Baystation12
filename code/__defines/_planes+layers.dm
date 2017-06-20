@@ -61,7 +61,8 @@ What is the naming convention for planes or layers?
 */
 
 #define CLICKCATCHER_PLANE -99
-#define SPACE_PLANE -98
+
+#define SPACE_PLANE     -98
 
 #define BELOW_TURF_PLANE             -22 // objects that are below turfs. Useful for asteroid smoothing or other such magic.
 	// TURF_LAYER 2
@@ -189,7 +190,6 @@ What is the naming convention for planes or layers?
 	#define HUD_ITEM_LAYER       2
 	#define HUD_ABOVE_ITEM_LAYER 3
 
-
 /image
 	plane = FLOAT_PLANE			// this is defunct, lummox fixed this on recent compilers, but it will bug out if I remove it for coders not on the most recent compile.
 
@@ -200,7 +200,6 @@ What is the naming convention for planes or layers?
 /image/proc/turf_decal_layerise()
 	plane = ABOVE_TURF_PLANE
 	layer = DECAL_LAYER
-
 /atom/proc/hud_layerise()
 	plane = HUD_PLANE
 	layer = HUD_ITEM_LAYER

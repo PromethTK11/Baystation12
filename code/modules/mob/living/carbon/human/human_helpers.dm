@@ -136,10 +136,13 @@
 /mob/living/carbon/human
 	var/next_sonar_ping = 0
 
+// Pero si esto está genial, cago en Baystation
+// Pedazos de zaelots
+// Cambiando a que aparezca bajo la pestaña "Abilities" antes que en "IC" para que sea más fácil de ver.
 /mob/living/carbon/human/proc/sonar_ping()
 	set name = "Listen In"
 	set desc = "Allows you to listen in to movement and noises around you."
-	set category = "IC"
+	set category = "Abilities"
 
 	if(incapacitated())
 		to_chat(src, "<span class='warning'>You need to recover before you can use this ability.</span>")
