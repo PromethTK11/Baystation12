@@ -1,4 +1,3 @@
-/*
 /datum/shuttle/ferry/emergency/centcom
 	name = "Escape"
 	location = 1
@@ -147,4 +146,3 @@
 	docking_controller_tag = "mining_shuttle"
 	dock_target_station = "mining_dock_airlock"
 	dock_target_offsite = "mining_outpost_airlock"
-*/
