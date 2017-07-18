@@ -28,6 +28,7 @@
 	#include "items/papers.dm"
 	#include "structures/airlock.dm"
 	#include "structures/blast_door.dm"
+	#include "structures/catwalk.dm"
 	#include "structures/closet.dm"
 	#include "structures/curtains.dm"
 	#include "structures/flooring.dm"
