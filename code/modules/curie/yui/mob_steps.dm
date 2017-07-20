@@ -1,20 +1,19 @@
 /proc/isGroundedMob(mob/living/M)
-  if(istype(M, /mob/living/carbon) || istype(M, /mob/living/silicon))
-    for(var/B in FOOTSTEP_BLACKLISTED_MOBS) // Blacklist for things that should have footsteps but shouldn't
-      if(istype(M, B))
-        return 0
-    return 1
+	if(istype(M, /mob/living/carbon) || istype(M, /mob/living/silicon))
+		for(var/B in FOOTSTEP_BLACKLISTED_MOBS) // Blacklist for things that should have footsteps but shouldn't
+			if(istype(M, B))
+				return 0
+		return 1
 
-  if(istype(M, /mob/living/carbon)) // Check if something that should have footsteps
-    return 1
-  else if(istype(M, /mob/living/silicon)) // Check if something that should have footsteps, but is not alive
-    return 1
+	if(istype(M, /mob/living/carbon)) // Check if something that should have footsteps
+		return 1
+	else if(istype(M, /mob/living/silicon)) // Check if something that should have footsteps, but is not alive
+		return 1
 
 proc/isWalking(mob/living/carbon/human/M) // Gotta be sneaky
-  if(istype(M) && M.m_intent == "walk")
-    return 1
-  return 0
-
+	if(istype(M) && M.m_intent == "walk")
+		return 1
+	return 0
 /*
 /proc/getFootStepSound(T as turf, M as mob)
   if(!T) // Check if its a turf at all (sanity check)
