@@ -3,7 +3,7 @@ To Lefouin
 
 This way I feel the thing gets managed a bit better
 Also adds step cooldown
-And fixes the thing of stepping on weird items on the floor
+And fixes the thing of stepping on weird items on the floor - Sansaur
 
 */
 
