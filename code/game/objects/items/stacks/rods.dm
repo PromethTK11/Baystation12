@@ -79,19 +79,41 @@
 				return 1
 
 	else if(!in_use)
-		if(get_amount() < 2)
-			to_chat(user, "<span class='warning'>You need at least two rods to do this.</span>")
-			return
-		to_chat(usr, "<span class='notice'>Assembling grille...</span>")
-		in_use = 1
-		if (!do_after(usr, 10))
-			in_use = 0
-			return
-		var/obj/structure/grille/F = new /obj/structure/grille/ ( usr.loc )
-		to_chat(usr, "<span class='notice'>You assemble a grille</span>")
-		in_use = 0
-		F.add_fingerprint(usr)
-		use(2)
+		var/choice = input(user, "Grille or lattice?", "Choice", "Grille") in list("Grille", "Catwalk")
+		switch(choice)
+			if("Grille")
+				if(get_amount() < 2)
+					to_chat(user, "<span class='warning'>You need at least two rods to do this.</span>")
+					return
+				to_chat(usr, "<span class='notice'>Assembling grille...</span>")
+				in_use = 1
+				if (!do_after(usr, 20))
+					in_use = 0
+					return
+				var/obj/structure/grille/F = new /obj/structure/grille/ ( usr.loc )
+				to_chat(usr, "<span class='notice'>You assemble a grille</span>")
+				in_use = 0
+				F.add_fingerprint(usr)
+				use(2)
+			if("Catwalk")
+				if(get_amount() < 2)
+					to_chat(user, "<span class='warning'>You need at least two rods to do this.</span>")
+					return
+				if(!istype(user.loc, /turf/simulated/floor/plating))
+					to_chat(user, "<span class='warning'> You can only build catwalks on platings!</span>")
+					return
+
+				to_chat(usr, "<span class='notice'>Assembling catwalk...</span>")
+				in_use = 1
+				if (!do_after(usr, 60))
+					in_use = 0
+					return
+				var/obj/structure/catwalk/F = new /obj/structure/catwalk/ ( usr.loc )
+				to_chat(usr, "<span class='notice'>You assemble a catwalk</span>")
+				in_use = 0
+				F.add_fingerprint(usr)
+				use(2)
+
 	return
 
 /obj/item/stack/rods/update_icon()
