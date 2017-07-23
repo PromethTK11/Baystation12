@@ -40,6 +40,7 @@
 	#include "structures/wall_icons.dm"
 	#include "structures/walls.dm"
 	#include "structures/machinery.dm"
+	#include "structures/railing.dm"
 	#include "structures/shelf.dm" //Abruti
 
 
