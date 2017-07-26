@@ -33,6 +33,7 @@ datum/category_group/underwear/dd_SortValue()
 	sort_order = 4 // Undershirts currently have the highest sort order because they may cover both underwear and socks.
 	category_item_type = /datum/category_item/underwear/undershirt
 
+
 /*******************
 * Category entries *
 *******************/

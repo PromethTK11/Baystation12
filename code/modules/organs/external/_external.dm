@@ -9,7 +9,6 @@
 	dir = SOUTH
 	organ_tag = "limb"
 	appearance_flags = PIXEL_SCALE
-
 	// Strings
 	var/broken_description             // fracture string if any.
 	var/damage_state = "00"            // Modifier used for generating the on-mob damage overlay for this limb.

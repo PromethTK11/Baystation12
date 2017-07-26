@@ -93,6 +93,7 @@ var/global/list/datum/dna/gene/dna_genes[0]
 	new_dna.b_type=b_type
 	new_dna.real_name=real_name
 	new_dna.species=species
+	new_dna.body_markings=body_markings.Copy()
 	for(var/b=1;b<=DNA_SE_LENGTH;b++)
 		new_dna.SE[b]=SE[b]
 		if(b<=DNA_UI_LENGTH)

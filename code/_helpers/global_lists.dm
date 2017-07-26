@@ -150,6 +150,7 @@ var/global/list/string_slot_flags = list(
 				facial_hair_styles_male_list += H.name
 				facial_hair_styles_female_list += H.name
 
+
 	//Surgery Steps - Initialize all /datum/surgery_step into a list
 	paths = typesof(/datum/surgery_step)-/datum/surgery_step
 	for(var/T in paths)

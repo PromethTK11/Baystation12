@@ -2400,6 +2400,8 @@
 #include "San_Additions\cure_steps.dm"
 #include "San_Additions\FrontFlip.dm"
 #include "San_Additions\Tajaran_Necesidad_Dormir.dm"
+#include "San_Additions\BodyMarkings\body_markings_mod.dm"
+#include "San_Additions\BodyMarkings\bodymarkings.dm"
 #include "San_Additions\Field of View\FieldOfView.dm"
 #include "San_Additions\objectives_dreyfus\debugging.dm"
 #include "San_Additions\objectives_dreyfus\objectives.dm"
