@@ -197,7 +197,7 @@ RECUERDEN, SI SE HACE PR QUE CAMBIE HUMAN_MOVEMENT VA A HABER MUERTECITA
 	src.visible_message("<span class='danger'>[src] thrashes wildly around, breaking any grabs upon him!</span>")
 	to_chat(src, "<span class=warning>Such aggressive movements have exhausted you.</span>")
 	// Hay que añadir lo de los "pinned" pero es que tras hacer pruebas, parece que no funca del todo bien
-	for(var/obj/item/weapon/grab/G in src.grabbed_by)
+	for(var/obj/item/grab/G in src.grabbed_by)
 		qdel(G) 	// Esto hay que revisarlo, supuestamente el destroy ya lo hace, pero hay que ver
 	src.resting = 0
 	src.lying = 0
