@@ -313,10 +313,11 @@
 	minimal_player_age = 16
 	economic_modifier = 4
 	ideal_character_age = 21
-	total_positions = 1
+	total_positions = 2
 	spawn_positions = 1
 	alt_titles = list(
 		"Chef",
+		"Bartender",
 		)
 	allowed_branches = list(
 		/datum/mil_branch/ouvrier,
