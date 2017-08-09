@@ -346,7 +346,7 @@
 	if(relative_density > 0.02) //don't bother if we are in vacuum or near-vacuum
 		var/loc_temp = environment.temperature
 
-		if(adjusted_pressure < species.warning_high_pressure && adjusted_pressure > species.warning_low_pressure && abs(loc_temp - bodytemperature) < 20 && bodytemperature < species.heat_level_1 && bodytemperature > species.cold_level_1)
+		if(adjusted_pressure < species.warning_high_pressure && adjusted_pressure > species.warning_low_pressure && abs(loc_temp - bodytemperature) < 20 && bodytemperature < species.heat_level_1 && bodytemperature > species.cold_level_1 && species.body_temperature)
 			pressure_alert = 0
 			return // Temperatures are within normal ranges, fuck all this processing. ~Ccomp
 
@@ -601,9 +601,6 @@
 			if (prob(10) && nutrition > 70)
 				for(var/limb_type in species.has_limbs)
 					var/obj/item/organ/external/E = organs_by_name[limb_type]
-					for(var/datum/wound/W in E.wounds)
-						if (W.wound_damage() == 0 && prob(50))
-							E.wounds -= W
 					if(E && !E.is_usable())
 						E.removed()
 						qdel(E)
@@ -616,6 +613,10 @@
 						to_chat(src, "<span class='warning'>Some of your nymphs split and hurry to reform your [O.name].</span>")
 						nutrition -= 60
 						update_body()
+					else
+						for(var/datum/wound/W in E.wounds)
+							if (W.wound_damage() == 0 && prob(50))
+								E.wounds -= W
 
 	// TODO: stomach and bloodstream organ.
 	if(!isSynthetic())

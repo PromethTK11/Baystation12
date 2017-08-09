@@ -477,7 +477,7 @@
 	outfit_type = /decl/hierarchy/outfit/job/torch/crew/security/brig_officer
 	allowed_branches = list(
 		/datum/mil_branch/expeditionary_corps,
-		/datum/mil_branch/fleet = /decl/hierarchy/outfit/job/torch/crew/security/brig_officer,
+		/datum/mil_branch/fleet = /decl/hierarchy/outfit/job/torch/crew/security/brig_officer/fleet,
 		/datum/mil_branch/marine_corps = /decl/hierarchy/outfit/job/torch/crew/security/brig_officer/marine
 	)
 	allowed_ranks = list(
@@ -642,13 +642,16 @@
 		"Orderly" = /decl/hierarchy/outfit/job/torch/crew/medical/contractor/orderly,
 		"Mortician" = /decl/hierarchy/outfit/job/torch/crew/medical/contractor/mortus,
 		"Virologist" = /decl/hierarchy/outfit/job/torch/crew/medical/contractor/virologist,
-		"Xenosurgeon" = /decl/hierarchy/outfit/job/torch/crew/medical/contractor/xenosurgeon)
+		"Xenosurgeon" = /decl/hierarchy/outfit/job/torch/crew/medical/contractor/xenosurgeon,
+		"Paramedic" = /decl/hierarchy/outfit/job/torch/crew/medical/contractor/paramedic)
 	outfit_type = /decl/hierarchy/outfit/job/torch/crew/medical/contractor
 	allowed_branches = list(/datum/mil_branch/civilian)
 	allowed_ranks = list(/datum/mil_rank/civ/contractor)
 
-	access = list(access_medical, access_morgue, access_crematorium, access_virology, access_surgery, access_medical_equip, access_solgov_crew)
-	minimal_access = list(access_medical, access_morgue, access_crematorium, access_virology, access_surgery, access_medical_equip, access_solgov_crew)
+	access = list(access_medical, access_morgue, access_crematorium, access_virology, access_surgery, access_medical_equip, access_solgov_crew,
+		            access_eva, access_maint_tunnels, access_emergency_storage, access_external_airlocks)
+	minimal_access = list(access_medical, access_morgue, access_crematorium, access_virology, access_surgery, access_medical_equip, access_solgov_crew,
+		            access_eva, access_maint_tunnels, access_emergency_storage, access_external_airlocks)
 
 
 /datum/job/chemist
