@@ -516,3 +516,11 @@ area/shuttle/merc/start
 	icon_state = "mining"
 	requires_power = 0
 	dynamic_lighting = 0
+
+//Misc
+
+/area/deity_spawn
+	name = "\improper Deity Spawn"
+	icon_state = "yellow"
+	requires_power = 0
+	dynamic_lighting = 0
