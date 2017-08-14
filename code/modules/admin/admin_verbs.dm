@@ -95,7 +95,7 @@ var/list/admin_verbs_admin = list(
 	/client/proc/add_trader,
 	/client/proc/remove_trader,
 	/datum/admins/proc/sendFax,
-	///client/proc/DreyfusObjectivesDebug				// Added this for the Dreyfus Objectives - Sansaur
+	/client/proc/DreyfusObjectivesDebug				// Added this for the Dreyfus Objectives - Sansaur
 )
 var/list/admin_verbs_ban = list(
 	/client/proc/unban_panel,
