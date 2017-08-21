@@ -22,6 +22,12 @@
 /datum/species/unathi
 	clothing_slowdown_resistance = 2		// Los unathi se ralentizan la mitad por la ropa
 	item_slowdown_resistance = 2			// Los unathi se ralentizan la mitad por los objetos también.
+	heat_discomfort_level = 307				// Los unathi pueden estar en "límite de calorcito" cuando tienen una temperatura corporal parecida a la sangre caliente
+	body_temperature = 300					// Los unathi ahora tienen temperatura corporal inferior
+
+	// Recordemos que los unathi tienen una resistencia a las quemaduras por el calor superior a la normal, así que aumentarles el calor por la ropa no tiene tanto efecto
+/datum/species/unathi/handle_environment_special(var/mob/living/carbon/human/H)
+	handle_clothing_heat(H)					// Los unathi reciben calor de la ropa
 
 /*
 

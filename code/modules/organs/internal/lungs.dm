@@ -308,7 +308,10 @@
 //		log_debug("Breath: [breath.temperature], [src]: [bodytemperature], Adjusting: [temp_adj]")
 		owner.bodytemperature += temp_adj
 
-	else if(breath.temperature >= species.heat_discomfort_level)
-		species.get_environment_discomfort(owner,"heat")
-	else if(breath.temperature <= species.cold_discomfort_level)
-		species.get_environment_discomfort(owner,"cold")
+	// Removing this and changing it to the get_enviroment_discomfort
+	// Basically, instead of checking it via the temperature of the gas_mixture, we check the bodytemperature in the
+	// get_enviroment_discomfort proc.
+//	else if(breath.temperature >= species.heat_discomfort_level)
+	species.get_environment_discomfort(owner,"heat")
+//	else if(breath.temperature <= species.cold_discomfort_level)
+	species.get_environment_discomfort(owner,"cold")
