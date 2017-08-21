@@ -177,6 +177,7 @@ datum/preferences
 	ShowChoices(usr)
 	return 1
 
+	// WE need to leave the body marking things here
 /datum/preferences/proc/copy_to(mob/living/carbon/human/character, is_preview_copy = FALSE)
 	// Sanitizing rather than saving as someone might still be editing when copy_to occurs.
 	player_setup.sanitize_setup()
@@ -229,7 +230,6 @@ datum/preferences
 			if(!islist(organ_data)) continue
 			var/limb_path = organ_data["path"]
 			O = new limb_path(character)
-
 	// Destroy/cyborgize organs and limbs. The order is important for preserving low-level choices for robolimb sprites being overridden.
 	for(var/name in BP_BY_DEPTH)
 		var/status = organ_data[name]
@@ -268,6 +268,20 @@ datum/preferences
 					I.mechassist()
 				else if(status == "mechanical")
 					I.robotize()
+
+
+	for(var/N in character.organs_by_name)
+		var/obj/item/organ/external/O = character.organs_by_name[N]
+		O.markings.Cut()
+
+	for(var/M in body_markings)
+		var/datum/sprite_accessory/marking/mark_datum = body_marking_styles_list[M]
+		var/mark_color = "[body_markings[M]]"
+
+		for(var/BP in mark_datum.body_parts)
+			var/obj/item/organ/external/O = character.organs_by_name[BP]
+			if(O)
+				O.markings[M] = list("color" = mark_color, "datum" = mark_datum)
 
 	character.all_underwear.Cut()
 	character.all_underwear_metadata.Cut()

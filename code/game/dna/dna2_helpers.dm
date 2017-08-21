@@ -174,6 +174,13 @@
 		if((0 < beard) && (beard <= facial_hair_styles_list.len))
 			H.f_style = facial_hair_styles_list[beard]
 
+		//Body markings
+		for(var/tag in dna.body_markings)
+			var/obj/item/organ/external/E = H.organs_by_name[tag]
+			if(E)
+				var/list/marklist = dna.body_markings[tag]
+				E.markings = marklist.Copy()
+
 		H.force_update_limbs()
 		H.update_body()
 		H.update_eyes()
