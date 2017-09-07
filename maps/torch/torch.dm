@@ -6,7 +6,7 @@
 	#include "torch_holodecks.dm"
 	#include "torch_overmap.dm"
 	#include "torch_presets.dm"
-	#include "torch_ranks.dm"
+	//#include "torch_ranks.dm"
 	#include "torch_shuttles.dm"
 	#include "torch_unit_testing.dm"
 	#include "torch_gamemodes.dm"

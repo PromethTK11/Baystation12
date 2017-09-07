@@ -2,7 +2,6 @@
 	name = "Torch"
 	full_name = "SEV Torch"
 	path = "torch"
-	flags = MAP_HAS_BRANCH | MAP_HAS_RANK
 
 	lobby_icon = 'maps/torch/icons/lobby.dmi'
 
