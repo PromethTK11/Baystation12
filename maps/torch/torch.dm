@@ -6,14 +6,15 @@
 	#include "torch_holodecks.dm"
 	#include "torch_overmap.dm"
 	#include "torch_presets.dm"
-	#include "torch_ranks.dm"
+	//#include "torch_ranks.dm"
 	#include "torch_shuttles.dm"
 	#include "torch_unit_testing.dm"
 	#include "torch_gamemodes.dm"
+	#include "torch_antagonism.dm"
 
 	#include "datums/uniforms.dm"
 	#include "datums/uniforms_expedition.dm"
-	#include "datums/uniforms_fleet.dm"
+	//#include "datums/uniforms_fleet.dm"
 	#include "datums/uniforms_marine.dm"
 
 	#include "items/cards_ids.dm"
@@ -51,8 +52,6 @@
 	#include "loadout/loadout_xeno.dm"
 	#include "loadout/~defines.dm"
 
-	#include "../shared/exodus_torch/_include.dm"
-
 	#include "torch-1.dmm"
 	#include "torch-2.dmm"
 	#include "torch-3.dmm"
@@ -72,6 +71,7 @@
 	#include "../../code/modules/lobby_music/dilbert.dm"
 	#include "../../code/modules/lobby_music/space_oddity.dm"
 	#include "../../code/modules/lobby_music/Torch.dm"
+	#include "../../code/modules/lobby_music/title1.dm"
 
 	#define using_map_DATUM /datum/map/torch
 

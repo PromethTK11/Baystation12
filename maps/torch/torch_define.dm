@@ -2,7 +2,6 @@
 	name = "Torch"
 	full_name = "SEV Torch"
 	path = "torch"
-	flags = MAP_HAS_BRANCH | MAP_HAS_RANK
 
 	lobby_icon = 'maps/torch/icons/lobby.dmi'
 
@@ -42,6 +41,9 @@
 	use_overmap = 1
 
 	id_hud_icons = 'maps/torch/icons/assignment_hud.dmi'
+	lobby_screens = list("title","title2")
+
+	num_exoplanets = 0
 
 /datum/map/torch/setup_map()
 	..()
