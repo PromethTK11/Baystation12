@@ -35,7 +35,7 @@
 	if(beaker)
 		beaker.forceMove(get_step(loc, SOUTH)) //Beaker is carefully ejected from the wreckage of the cryotube
 		beaker = null
-	..()
+	. = ..()
 
 /obj/machinery/atmospherics/unary/cryo_cell/atmos_init()
 	..()
@@ -46,7 +46,7 @@
 			node = target
 			break
 
-/obj/machinery/atmospherics/unary/cryo_cell/process()
+/obj/machinery/atmospherics/unary/cryo_cell/Process()
 	..()
 	if(!node)
 		return
@@ -133,7 +133,7 @@
 	ui = GLOB.nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
 	if (!ui)
 		// the ui does not exist, so we'll create a new() one
-        // for a list of parameters and their descriptions see the code docs in \code\modules\nano\nanoui.dm
+		// for a list of parameters and their descriptions see the code docs in \code\modules\nano\nanoui.dm
 		ui = new(user, src, ui_key, "cryo.tmpl", "Cryo Cell Control System", 520, 410)
 		// when the ui is first opened this is the data it will use
 		ui.set_initial_data(data)

@@ -41,7 +41,7 @@
 
 	var/msg = FormMessage(message, message_title)
 	for(var/mob/M in GLOB.player_list)
-		if((M.z in GLOB.using_map.contact_levels) && !istype(M,/mob/new_player) && !isdeaf(M))
+		if((M.z in (GLOB.using_map.contact_levels | GLOB.using_map.admin_levels)) && !istype(M,/mob/new_player) && !isdeaf(M))
 			to_chat(M, msg)
 			if(message_sound)
 				sound_to(M, message_sound)
@@ -119,12 +119,13 @@ datum/announcement/proc/NewsCast(message as text, message_title as text)
 
 /proc/get_announcement_frequency(var/datum/job/job)
 	// During red alert all jobs are announced on main frequency.
-	if(security_level >= SEC_LEVEL_RED)
+	var/decl/security_state/security_state = decls_repository.get_decl(GLOB.using_map.security_state)
+	if (security_state.current_security_level_is_same_or_higher_than(security_state.high_security_level))
 		return "Common"
 
 	if(job.department_flag & (COM | CIV | MSC))
 		return "Common"
-	if(job.department_flag & (SUP | CRG))
+	if(job.department_flag & SUP)
 		return "Supply"
 	if(job.department_flag & SPT)
 		return "Command"
@@ -138,4 +139,6 @@ datum/announcement/proc/NewsCast(message as text, message_title as text)
 		return "Science"
 	if(job.department_flag & SRV)
 		return "Service"
+	if(job.department_flag & EXP)
+		return "Exploration"
 	return "Common"

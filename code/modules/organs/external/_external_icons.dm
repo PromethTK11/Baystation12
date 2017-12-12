@@ -22,7 +22,7 @@ var/list/limb_icon_cache = list()
 			return
 	if(species && human.species && species.name != human.species.name)
 		return
-	if(!isnull(human.s_tone) && (human.species.appearance_flags & HAS_SKIN_TONE))
+	if(!isnull(human.s_tone) && (human.species.appearance_flags & HAS_A_SKIN_TONE))
 		s_tone = human.s_tone
 	if(human.species.appearance_flags & HAS_SKIN_COLOR)
 		s_col = list(human.r_skin, human.g_skin, human.b_skin)
@@ -35,7 +35,7 @@ var/list/limb_icon_cache = list()
 		var/datum/robolimb/franchise = all_robolimbs[model]
 		if(!(franchise && franchise.skintone))
 			return
-	if(!isnull(dna.GetUIValue(DNA_UI_SKIN_TONE)) && (species.appearance_flags & HAS_SKIN_TONE))
+	if(!isnull(dna.GetUIValue(DNA_UI_SKIN_TONE)) && (species.appearance_flags & HAS_A_SKIN_TONE))
 		s_tone = dna.GetUIValue(DNA_UI_SKIN_TONE)
 	if(species.appearance_flags & HAS_SKIN_COLOR)
 		s_col = list(dna.GetUIValue(DNA_UI_SKIN_R), dna.GetUIValue(DNA_UI_SKIN_G), dna.GetUIValue(DNA_UI_SKIN_B))
@@ -117,8 +117,8 @@ var/list/limb_icon_cache = list()
 // amount to represent the obfuscation of being in agonizing pain.
 
 // Global scope, used in code below.
-var/list/flesh_hud_colours = list("#00FF00","#AAFF00","#FFFF00","#FFAA00","#FF0000","#AA0000","#660000")
-var/list/robot_hud_colours = list("#FFFFFF","#CCCCCC","#AAAAAA","#888888","#666666","#444444","#222222","#000000")
+var/list/flesh_hud_colours = list("#00ff00","#aaff00","#ffff00","#ffaa00","#ff0000","#aa0000","#660000")
+var/list/robot_hud_colours = list("#ffffff","#cccccc","#aaaaaa","#888888","#666666","#444444","#222222","#000000")
 
 /obj/item/organ/external/proc/get_damage_hud_image()
 
@@ -153,7 +153,7 @@ var/list/robot_hud_colours = list("#FFFFFF","#CCCCCC","#AAAAAA","#888888","#6666
 /obj/item/organ/external/proc/apply_colouration(var/icon/applying)
 
 	if(nonsolid)
-		applying.MapColors("#4D4D4D","#969696","#1C1C1C", "#000000")
+		applying.MapColors("#4d4d4d","#969696","#1c1c1c", "#000000")
 		if(species && species.get_bodytype(owner) != SPECIES_HUMAN)
 			applying.SetIntensity(1.5)
 		else

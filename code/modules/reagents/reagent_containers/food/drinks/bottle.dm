@@ -325,6 +325,15 @@
 		..()
 		reagents.add_reagent(/datum/reagent/ethanol/bluecuracao, 100)
 
+/obj/item/weapon/reagent_containers/food/drinks/bottle/herbal
+	name = "Liqueur d'Herbe"
+	desc = "A bottle of the seventh-finest herbal liquor sold under a generic name in the galaxy. The back label has a load of guff about the monks who traditionally made this particular variety."
+	icon_state = "herbal"
+	center_of_mass = "x=16;y=6"
+	New()
+		..()
+		reagents.add_reagent(/datum/reagent/ethanol/herbal, 100)
+
 /obj/item/weapon/reagent_containers/food/drinks/bottle/grenadine
 	name = "Briar Rose Grenadine Syrup"
 	desc = "Sweet and tangy, a bar syrup used to add color or flavor to drinks."
@@ -429,8 +438,8 @@
 	icon_state = "beer"
 	center_of_mass = "x=16;y=12"
 /obj/item/weapon/reagent_containers/food/drinks/bottle/small/beer/New()
-    . = ..()
-    reagents.add_reagent(/datum/reagent/ethanol/beer, 30)
+	. = ..()
+	reagents.add_reagent(/datum/reagent/ethanol/beer, 30)
 
 /obj/item/weapon/reagent_containers/food/drinks/bottle/small/ale
 	name = "\improper Magm-Ale"
@@ -439,5 +448,5 @@
 	item_state = "beer"
 	center_of_mass = "x=16;y=10"
 /obj/item/weapon/reagent_containers/food/drinks/bottle/small/ale/New()
-    . = ..()
-    reagents.add_reagent(/datum/reagent/ethanol/ale, 30)
+	. = ..()
+	reagents.add_reagent(/datum/reagent/ethanol/ale, 30)

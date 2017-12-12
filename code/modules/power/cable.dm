@@ -41,12 +41,6 @@ var/list/possible_cable_coil_colours
 	color = COLOR_RED
 	var/obj/machinery/power/breakerbox/breaker_box
 
-/obj/structure/cable/hide(var/do_hide)
-	if(do_hide && level == 1)
-		plane = ABOVE_PLATING_PLANE
-		layer = WIRE_LAYER
-	else
-		reset_plane_and_layer()
 
 /obj/structure/cable/drain_power(var/drain_check, var/surge, var/amount = 0)
 
@@ -157,7 +151,7 @@ var/list/possible_cable_coil_colours
 	if(!T.is_plating())
 		return
 
-	if(istype(W, /obj/item/weapon/wirecutters))
+	if(isWirecutter(W))
 		if(d1 == UP || d2 == UP)
 			to_chat(user, "<span class='warning'>You must cut this cable from above.</span>")
 			return
@@ -190,17 +184,17 @@ var/list/possible_cable_coil_colours
 		return
 
 
-	else if(istype(W, /obj/item/stack/cable_coil))
+	else if(isCoil(W))
 		var/obj/item/stack/cable_coil/coil = W
 		if (coil.get_amount() < 1)
 			to_chat(user, "Not enough cable")
 			return
 		coil.cable_join(src, user)
 
-	else if(istype(W, /obj/item/device/multitool))
+	else if(isMultitool(W))
 
 		if(powernet && (powernet.avail > 0))		// is it powered?
-			to_chat(user, "<span class='warning'>[get_wattage()]W in power network.</span>")
+			to_chat(user, "<span class='warning'>[get_wattage()] in power network.</span>")
 
 		else
 			to_chat(user, "<span class='warning'>The cable is not powered.</span>")
@@ -241,7 +235,7 @@ var/list/possible_cable_coil_colours
 				qdel(src)
 
 obj/structure/cable/proc/cableColor(var/colorC)
-	var/color_n = "#DD0000"
+	var/color_n = "#dd0000"
 	if(colorC)
 		color_n = colorC
 	color = color_n
@@ -457,7 +451,7 @@ obj/structure/cable/proc/cableColor(var/colorC)
 			if(!P.connect_to_network()) //can't find a node cable on a the turf to connect to
 				P.disconnect_from_network() //remove from current network
 
-    powernet = null // And finally null the powernet var.
+	powernet = null // And finally null the powernet var.
 
 ///////////////////////////////////////////////
 // The cable coil object, used for laying cable
@@ -470,16 +464,16 @@ obj/structure/cable/proc/cableColor(var/colorC)
 #define MAXCOIL 30
 
 /obj/item/stack/cable_coil
-	name = "cable coil"
+	name = "multipurpose cable coil"
 	icon = 'icons/obj/power.dmi'
 	icon_state = "coil"
 	randpixel = 2
 	amount = MAXCOIL
 	max_amount = MAXCOIL
 	color = COLOR_RED
-	desc = "A coil of power cable."
-	throwforce = 10
-	w_class = ITEM_SIZE_SMALL
+	desc = "A coil of wiring, for delicate electronics use aswell as the more basic cable laying."
+	throwforce = 0
+	w_class = ITEM_SIZE_NORMAL
 	throw_speed = 2
 	throw_range = 5
 	matter = list(DEFAULT_WALL_MATERIAL = 50, "glass" = 20)
@@ -488,6 +482,12 @@ obj/structure/cable/proc/cableColor(var/colorC)
 	item_state = "coil"
 	attack_verb = list("whipped", "lashed", "disciplined", "flogged")
 	stacktype = /obj/item/stack/cable_coil
+
+/obj/item/stack/cable_coil/single
+	amount = 1
+
+/obj/item/stack/cable_coil/single/New(var/loc, var/length = 1, var/param_color = null)
+	..(loc, length, param_color)
 
 /obj/item/stack/cable_coil/cyborg
 	name = "cable coil synthesizer"

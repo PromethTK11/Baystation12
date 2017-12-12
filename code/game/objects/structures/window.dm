@@ -20,6 +20,8 @@
 	var/glasstype = null // Set this in subtypes. Null is assumed strange or otherwise impossible to dismantle, such as for shuttle glass.
 	var/silicate = 0 // number of units of silicate
 
+	atmos_canpass = CANPASS_PROC
+
 /obj/structure/window/examine(mob/user)
 	. = ..(user)
 
@@ -213,7 +215,7 @@
 
 	if(W.flags & NOBLUDGEON) return
 
-	if(istype(W, /obj/item/weapon/screwdriver))
+	if(isScrewdriver(W))
 		if(reinf && state >= 1)
 			state = 3 - state
 			update_nearby_icons()
@@ -227,11 +229,11 @@
 			set_anchored(!anchored)
 			playsound(loc, 'sound/items/Screwdriver.ogg', 75, 1)
 			to_chat(user, (anchored ? "<span class='notice'>You have fastened the window to the floor.</span>" : "<span class='notice'>You have unfastened the window.</span>"))
-	else if(istype(W, /obj/item/weapon/crowbar) && reinf && state <= 1)
+	else if(isCrowbar(W) && reinf && state <= 1)
 		state = 1 - state
 		playsound(loc, 'sound/items/Crowbar.ogg', 75, 1)
 		to_chat(user, (state ? "<span class='notice'>You have pried the window into the frame.</span>" : "<span class='notice'>You have pried the window out of the frame.</span>"))
-	else if(istype(W, /obj/item/weapon/wrench) && !anchored && (!state || !reinf))
+	else if(isWrench(W) && !anchored && (!state || !reinf))
 		if(!glasstype)
 			to_chat(user, "<span class='notice'>You're not sure how to dismantle \the [src] properly.</span>")
 		else
@@ -251,6 +253,7 @@
 			if(health <= 7)
 				set_anchored(FALSE)
 				step(src, get_dir(user, src))
+				update_verbs()
 		else
 			playsound(loc, 'sound/effects/Glasshit.ogg', 75, 1)
 		..()
@@ -453,8 +456,8 @@
 	layer = is_full_window() ? FULL_WINDOW_LAYER : SIDE_WINDOW_LAYER
 
 /obj/structure/window/reinforced/full
-    dir = 5
-    icon_state = "fwindow"
+	dir = 5
+	icon_state = "fwindow"
 
 /obj/structure/window/reinforced/tinted
 	name = "tinted window"
@@ -492,7 +495,7 @@
 
 /obj/structure/window/reinforced/polarized/proc/toggle()
 	if(opacity)
-		animate(src, color="#FFFFFF", time=5)
+		animate(src, color="#ffffff", time=5)
 		set_opacity(0)
 	else
 		animate(src, color="#222222", time=5)

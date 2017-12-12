@@ -198,13 +198,14 @@
 	if(istype(mover) && mover.checkpass(PASSTABLE))
 		return 1
 	else
-		return 0
+		return !density
 
-/obj/machinery/portable_atmospherics/hydroponics/proc/check_health()
+/obj/machinery/portable_atmospherics/hydroponics/proc/check_health(var/icon_update = 1)
 	if(seed && !dead && health <= 0)
 		die()
 	check_level_sanity()
-	update_icon()
+	if(icon_update)
+		update_icon()
 
 /obj/machinery/portable_atmospherics/hydroponics/proc/die()
 	dead = 1
@@ -428,7 +429,7 @@
 	if (O.is_open_container())
 		return 0
 
-	if(istype(O, /obj/item/weapon/wirecutters) || istype(O, /obj/item/weapon/scalpel))
+	if(isWirecutter(O) || istype(O, /obj/item/weapon/scalpel))
 
 		if(!seed)
 			to_chat(user, "There is nothing to take a sample from in \the [src].")
@@ -452,7 +453,7 @@
 		// Bookkeeping.
 		check_health()
 		force_update = 1
-		process()
+		Process()
 
 		return
 
@@ -533,7 +534,7 @@
 		qdel(O)
 		check_health()
 
-	else if(mechanical && istype(O, /obj/item/weapon/wrench))
+	else if(mechanical && isWrench(O))
 
 		//If there's a connector here, the portable_atmospherics setup can handle it.
 		if(locate(/obj/machinery/atmospherics/portables_connector/) in loc)

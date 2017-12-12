@@ -27,7 +27,7 @@ var/global/list/plant_seed_sprites = list()
 
 	// Update icon.
 	overlays.Cut()
-	var/is_seeds = ((seed.seed_noun in list("seeds","pits","nodes")) ? 1 : 0)
+	var/is_seeds = ((seed.seed_noun in list(SEED_NOUN_SEEDS, SEED_NOUN_PITS, SEED_NOUN_NODES)) ? 1 : 0)
 	var/image/seed_mask
 	var/seed_base_key = "base-[is_seeds ? seed.get_trait(TRAIT_PLANT_COLOUR) : "spores"]"
 	if(plant_seed_sprites[seed_base_key])
@@ -261,5 +261,20 @@ var/global/list/plant_seed_sprites = list()
 /obj/item/seeds/tobaccoseed
 	seed_type = "tobacco"
 
+/obj/item/seeds/finetobaccoseed
+	seed_type = "finetobacco"
+
+/obj/item/seeds/puretobaccoseed
+	seed_type = "puretobacco"
+
 /obj/item/seeds/kudzuseed
 	seed_type = "kudzu"
+
+/obj/item/seeds/peppercornseed
+	seed_type = "peppercorn"
+
+/obj/item/seeds/garlicseed
+	seed_type = "garlic"
+
+/obj/item/seeds/onionseed
+	seed_type = "onion"

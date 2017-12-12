@@ -73,6 +73,22 @@
 
 #define isairlock(A) istype(A, /obj/machinery/door/airlock)
 
+#define isopenspace(A) istype(A, /turf/simulated/open)
+
+#define isWrench(A) istype(A, /obj/item/weapon/wrench)
+
+#define isWelder(A) istype(A, /obj/item/weapon/weldingtool)
+
+#define isCoil(A) istype(A, /obj/item/stack/cable_coil)
+
+#define isWirecutter(A) istype(A, /obj/item/weapon/wirecutters)
+
+#define isScrewdriver(A) istype(A, /obj/item/weapon/screwdriver)
+
+#define isMultitool(A) istype(A, /obj/item/device/multitool)
+
+#define isCrowbar(A) istype(A, /obj/item/weapon/crowbar)
+
 #define sequential_id(key) uniqueness_repository.Generate(/datum/uniqueness_generator/id_sequential, key)
 
 #define random_id(key,min_id,max_id) uniqueness_repository.Generate(/datum/uniqueness_generator/id_random, key, min_id, max_id)
@@ -122,12 +138,16 @@
 #define LAZYREMOVE(L, I) if(L) { L -= I; if(!L.len) { L = null; } }
 // Adds I to L, initalizing L if necessary
 #define LAZYADD(L, I) if(!L) { L = list(); } L += I;
+// Adds I to L, initalizing L if necessary, if I is not already in L
+#define LAZYDISTINCTADD(L, I) if(!L) { L = list(); } L |= I;
 // Sets L[A] to I, initalizing L if necessary
 #define LAZYSET(L, A, I) if(!L) { L = list(); } L[A] = I;
 // Reads I from L safely - Works with both associative and traditional lists.
 #define LAZYACCESS(L, I) (L ? (isnum(I) ? (I > 0 && I <= L.len ? L[I] : null) : L[I]) : null)
 // Reads the length of L, returning 0 if null
 #define LAZYLEN(L) length(L)
+// Safely checks if I is in L
+#define LAZYISIN(L, I) (L ? (I in L) : FALSE)
 // Null-safe L.Cut()
 #define LAZYCLEARLIST(L) if(L) L.Cut()
 // Reads L or an empty list if L is not a list.  Note: Does NOT assign, L may be an expression.

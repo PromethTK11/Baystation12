@@ -105,17 +105,6 @@
 
 
 /*
- * Parapens
- */
-/obj/item/weapon/pen/reagent/paralysis
-	origin_tech = list(TECH_MATERIAL = 2, TECH_ILLEGAL = 5)
-
-/obj/item/weapon/pen/reagent/paralysis/New()
-	..()
-	reagents.add_reagent(/datum/reagent/toxin/zombiepowder, 10)
-	reagents.add_reagent(/datum/reagent/cryptobiolin, 15)
-
-/*
  * Chameleon pen
  */
 /obj/item/weapon/pen/chameleon
@@ -182,7 +171,7 @@
 	icon_state = "crayonred"
 	w_class = ITEM_SIZE_TINY
 	attack_verb = list("attacked", "coloured")
-	colour = "#FF0000" //RGB
+	colour = "#ff0000" //RGB
 	var/shadeColour = "#220000" //RGB
 	var/uses = 30 //0 for unlimited uses
 	var/instant = 0

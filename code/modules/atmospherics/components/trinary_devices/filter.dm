@@ -87,7 +87,7 @@
 /obj/machinery/atmospherics/trinary/filter/hide(var/i)
 	update_underlays()
 
-/obj/machinery/atmospherics/trinary/filter/process()
+/obj/machinery/atmospherics/trinary/filter/Process()
 	..()
 
 	last_power_draw = 0
@@ -123,7 +123,7 @@
 	. = ..()
 
 /obj/machinery/atmospherics/trinary/filter/attackby(var/obj/item/weapon/W as obj, var/mob/user as mob)
-	if (!istype(W, /obj/item/weapon/wrench))
+	if(!isWrench(W))
 		return ..()
 	var/datum/gas_mixture/int_air = return_air()
 	var/datum/gas_mixture/env_air = loc.return_air()
@@ -246,7 +246,7 @@ obj/machinery/atmospherics/trinary/filter/m_filter/New()
 /obj/machinery/atmospherics/trinary/filter/m_filter/Initialize()
 	. = ..()
 	set_frequency(frequency)
-            
+
 /obj/machinery/atmospherics/trinary/filter/m_filter/atmos_init()
 	..()
 

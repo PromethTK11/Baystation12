@@ -62,14 +62,14 @@ var/list/global/tank_gauge_cache = list()
 	src.air_contents = new /datum/gas_mixture()
 	src.air_contents.volume = volume //liters
 	src.air_contents.temperature = T20C
-	GLOB.processing_objects.Add(src)
+	START_PROCESSING(SSobj, src)
 	update_gauge()
 	return
 
 /obj/item/weapon/tank/Destroy()
 	QDEL_NULL(air_contents)
 
-	GLOB.processing_objects.Remove(src)
+	STOP_PROCESSING(SSobj, src)
 	QDEL_NULL(src.proxyassembly)
 
 	if(istype(loc, /obj/item/device/transfer_valve))
@@ -119,14 +119,14 @@ var/list/global/tank_gauge_cache = list()
 		LB.blow(src)
 		src.add_fingerprint(user)
 
-	if(istype(W, /obj/item/stack/cable_coil))
+	if(isCoil(W))
 		var/obj/item/stack/cable_coil/C = W
 		if(C.use(1))
 			wired = 1
 			to_chat(user, "<span class='notice'>You attach the wires to the tank.</span>")
 			src.add_bomb_overlay()
 
-	if(istype(W, /obj/item/weapon/wirecutters))
+	if(isWirecutter(W))
 		if(wired && src.proxyassembly.assembly)
 
 			to_chat(user, "<span class='notice'>You carefully begin clipping the wires that attach to the tank.</span>")
@@ -181,7 +181,7 @@ var/list/global/tank_gauge_cache = list()
 			to_chat(user, "<span class='notice'>You need to wire the device up first.</span>")
 
 
-	if(istype(W, /obj/item/weapon/weldingtool/))
+	if(isWelder(W))
 		var/obj/item/weapon/weldingtool/WT = W
 		if(WT.remove_fuel(1,user))
 			if(!valve_welded)
@@ -263,7 +263,7 @@ var/list/global/tank_gauge_cache = list()
 	ui = GLOB.nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
 	if (!ui)
 		// the ui does not exist, so we'll create a new() one
-        // for a list of parameters and their descriptions see the code docs in \code\modules\nano\nanoui.dm
+		// for a list of parameters and their descriptions see the code docs in \code\modules\nano\nanoui.dm
 		ui = new(user, src, ui_key, "tanks.tmpl", "Tank", 500, 300)
 		// when the ui is first opened this is the data it will use
 		ui.set_initial_data(data)
@@ -346,7 +346,7 @@ var/list/global/tank_gauge_cache = list()
 
 	return remove_air(moles_needed)
 
-/obj/item/weapon/tank/process()
+/obj/item/weapon/tank/Process()
 	//Allow for reactions
 	air_contents.react() //cooking up air tanks - add phoron and oxygen, then heat above PHORON_MINIMUM_BURN_TEMPERATURE
 	if(gauge_icon)

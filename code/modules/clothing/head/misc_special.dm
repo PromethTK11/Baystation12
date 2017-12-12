@@ -50,6 +50,7 @@
 			flash_protection = initial(flash_protection)
 			tint = initial(tint)
 			icon_state = base_state
+			item_state = base_state
 			to_chat(usr, "You flip the [src] down to protect your eyes.")
 		else
 			src.up = !src.up
@@ -58,6 +59,7 @@
 			tint = TINT_NONE
 			flags_inv &= ~(HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE)
 			icon_state = "[base_state]up"
+			item_state = "[base_state]up"
 			to_chat(usr, "You push the [src] up out of your face.")
 		update_clothing_icon()	//so our mob-overlays
 		update_vision()
@@ -115,9 +117,9 @@
 	var/onfire = 0
 	body_parts_covered = HEAD
 
-/obj/item/clothing/head/cakehat/process()
+/obj/item/clothing/head/cakehat/Process()
 	if(!onfire)
-		GLOB.processing_objects.Remove(src)
+		STOP_PROCESSING(SSobj, src)
 		return
 
 	var/turf/location = src.loc
@@ -136,7 +138,7 @@
 		src.damtype = "fire"
 		src.icon_state = "cake1"
 		src.item_state = "cake1"
-		GLOB.processing_objects.Add(src)
+		START_PROCESSING(SSobj, src)
 	else
 		src.force = null
 		src.damtype = "brute"

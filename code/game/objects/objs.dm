@@ -11,9 +11,10 @@
 	var/in_use = 0 // If we have a user using us, this will be set on. We will check if the user has stopped using us, and thus stop updating and LAGGING EVERYTHING!
 	var/damtype = "brute"
 	var/armor_penetration = 0
+	var/anchor_fall = FALSE
 
 /obj/Destroy()
-	GLOB.processing_objects -= src
+	STOP_PROCESSING(SSobj, src)
 	return ..()
 
 /obj/Topic(href, href_list, var/datum/topic_state/state = GLOB.default_state)
@@ -67,10 +68,6 @@
 	// Nada
 
 /obj/item/proc/is_used_on(obj/O, mob/user)
-
-/obj/proc/process()
-	GLOB.processing_objects.Remove(src)
-	return 0
 
 /obj/assume_air(datum/gas_mixture/giver)
 	if(loc)
@@ -185,7 +182,7 @@
 
 /obj/attackby(obj/item/O as obj, mob/user as mob)
 	if(flags & OBJ_ANCHORABLE)
-		if(istype(O, /obj/item/weapon/wrench))
+		if(isWrench(O))
 			wrench_floor_bolts(user)
 			update_icon()
 			return

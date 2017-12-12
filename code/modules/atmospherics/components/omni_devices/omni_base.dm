@@ -61,7 +61,7 @@
 /obj/machinery/atmospherics/omni/proc/error_check()
 	return
 
-/obj/machinery/atmospherics/omni/process()
+/obj/machinery/atmospherics/omni/Process()
 	last_power_draw = 0
 	last_flow_rate = 0
 
@@ -73,7 +73,7 @@
 	return 1
 
 /obj/machinery/atmospherics/omni/attackby(var/obj/item/weapon/W as obj, var/mob/user as mob)
-	if(!istype(W, /obj/item/weapon/wrench))
+	if(!isWrench(W))
 		return ..()
 
 	var/int_pressure = 0

@@ -37,14 +37,17 @@ var/list/mining_floors = list()
 	has_resources = 1
 
 /turf/simulated/mineral/New()
-	mining_walls += src
+	if (!mining_walls["[src.z]"])
+		mining_walls["[src.z]"] = list()
+	mining_walls["[src.z]"] += src
 	spawn(0)
 		MineralSpread()
 	spawn(2)
 		update_icon(1)
 
 /turf/simulated/mineral/Destroy()
-	mining_walls -= src
+	if (mining_walls["[src.z]"])
+		mining_walls["[src.z]"] -= src
 	return ..()
 
 /turf/simulated/mineral/can_build_cable()
@@ -326,31 +329,24 @@ var/list/mining_floors = list()
 		N.updateMineralOverlays(1)
 
 /turf/simulated/mineral/proc/excavate_find(var/prob_clean = 0, var/datum/find/F)
-	//with skill and luck, players can cleanly extract finds
-	//otherwise, they come out inside a chunk of rock
-	var/obj/item/weapon/X
-	if(prob_clean)
-		X = new /obj/item/weapon/archaeological_find(src, new_item_type = F.find_type)
-	else
-		X = new /obj/item/weapon/ore/strangerock(src, inside_item_type = F.find_type)
-		geologic_data.UpdateNearbyArtifactInfo(src)
-		X:geologic_data = geologic_data
-
-	//some find types delete the /obj/item/weapon/archaeological_find and replace it with something else, this handles when that happens
-	//yuck
-	var/display_name = "something"
-	if(!X)
-		X = last_find
-	if(X)
-		display_name = X.name
 
 	//many finds are ancient and thus very delicate - luckily there is a specialised energy suspension field which protects them when they're being extracted
 	if(prob(F.prob_delicate))
 		var/obj/effect/suspension_field/S = locate() in src
 		if(!S)
-			if(X)
-				visible_message("<span class='danger'>[pick("[display_name] crumbles away into dust","[display_name] breaks apart")].</span>")
-				qdel(X)
+			visible_message("<span class='danger'>[pick("An object in the rock crumbles away into dust.","Something falls out of the rock and shatters onto the ground.")]</span>")
+			finds.Remove(F)
+			return
+
+	//with skill and luck, players can cleanly extract finds
+	//otherwise, they come out inside a chunk of rock
+	if(prob_clean)
+		var/find = get_archeological_find_by_findtype(F.find_type)
+		new find(src)
+	else
+		var/obj/item/weapon/ore/strangerock/rock = new(src, inside_item_type = F.find_type)
+		geologic_data.UpdateNearbyArtifactInfo(src)
+		rock.geologic_data = geologic_data
 
 	finds.Remove(F)
 
@@ -433,12 +429,15 @@ var/list/mining_floors = list()
 	has_resources = 1
 
 /turf/simulated/floor/asteroid/New()
-	mining_floors += src
+	if (!mining_floors["[src.z]"])
+		mining_floors["[src.z]"] = list()
+	mining_floors["[src.z]"] += src
 	if(prob(20))
 		overlay_detail = "asteroid[rand(0,9)]"
 
 /turf/simulated/floor/asteroid/Destroy()
-	mining_floors -= src
+	if (mining_floors["[src.z]"])
+		mining_floors["[src.z]"] -= src
 	return ..()
 
 /turf/simulated/floor/asteroid/ex_act(severity)

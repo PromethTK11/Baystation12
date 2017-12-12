@@ -24,7 +24,9 @@
 		/obj/item/weapon/clipboard,
 		/obj/item/weapon/folder/yellow,
 		/obj/item/weapon/packageWrap,
-		new /datum/atom_creator/weighted(list(/obj/item/weapon/storage/backpack = 75, /obj/item/weapon/storage/backpack/satchel_norm = 25)),
+		/obj/item/weapon/marshalling_wand,
+		/obj/item/weapon/marshalling_wand,
+		new /datum/atom_creator/weighted(list(/obj/item/weapon/storage/backpack = 75, /obj/item/weapon/storage/backpack/satchel/grey = 25)),
 		new /datum/atom_creator/weighted(list(/obj/item/weapon/storage/backpack/messenger = 75, /obj/item/weapon/storage/backpack/dufflebag = 25))
 	)
 
@@ -55,7 +57,8 @@
 		/obj/item/device/flash,
 		/obj/item/device/megaphone,
 		/obj/item/device/holowarrant,
-		/obj/item/clothing/suit/armor/vest/solgov,
-		new /datum/atom_creator/weighted(list(/obj/item/weapon/storage/backpack = 75, /obj/item/weapon/storage/backpack/satchel_norm = 25)),
+		/obj/item/clothing/suit/armor/pcarrier/light/sol,
+		/obj/item/device/binoculars,
+		new /datum/atom_creator/weighted(list(/obj/item/weapon/storage/backpack = 75, /obj/item/weapon/storage/backpack/satchel/grey = 25)),
 		new /datum/atom_creator/weighted(list(/obj/item/weapon/storage/backpack/messenger = 75, /obj/item/weapon/storage/backpack/dufflebag = 25))
 	)

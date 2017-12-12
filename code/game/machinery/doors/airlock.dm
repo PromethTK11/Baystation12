@@ -333,7 +333,7 @@
 	var/last_event = 0
 	var/rad_power = 7.5
 
-/obj/machinery/door/airlock/process()
+/obj/machinery/door/airlock/Process()
 	if(main_power_lost_until > 0 && world.time >= main_power_lost_until)
 		regainMainPower()
 
@@ -345,7 +345,7 @@
 
 	..()
 
-/obj/machinery/door/airlock/uranium/process()
+/obj/machinery/door/airlock/uranium/Process()
 	if(world.time > last_event+20)
 		if(prob(50))
 			radiation_repository.radiate(src, rad_power)
@@ -431,11 +431,13 @@ About the new airlock wires panel:
 					return
 			else /*if(src.justzap)*/
 				return
-		else if(user.hallucination > 50 && prob(10) && src.operating == 0)
-			to_chat(user, "<span class='danger'>You feel a powerful shock course through your body!</span>")
-			user.adjustHalLoss(10)
-			user.Stun(10)
-			return
+		else if(prob(10) && src.operating == 0)
+			var/mob/living/carbon/C = user
+			if(istype(C) && C.hallucination_power > 25)
+				to_chat(user, "<span class='danger'>You feel a powerful shock course through your body!</span>")
+				user.adjustHalLoss(10)
+				user.Stun(10)
+				return
 	..(user)
 
 /obj/machinery/door/airlock/bumpopen(mob/living/simple_animal/user as mob)
@@ -592,7 +594,7 @@ About the new airlock wires panel:
 	if(density)
 		if(locked && lights && src.arePowerSystemsOn())
 			icon_state = "door_locked"
-			set_light(1.5, 0.5, COLOR_RED_LIGHT)
+			set_light(2, 0.75, COLOR_RED_LIGHT)
 		else
 			icon_state = "door_closed"
 		if(p_open || welded)
@@ -610,6 +612,8 @@ About the new airlock wires panel:
 			overlays += image(icon, "sparks_damaged")
 	else
 		icon_state = "door_open"
+		if(src.arePowerSystemsOn())
+			set_light(2, 0.65, COLOR_LIME)
 		if((stat & BROKEN) && !(stat & NOPOWER))
 			overlays += image(icon, "sparks_open")
 
@@ -827,7 +831,7 @@ About the new airlock wires panel:
 	var/cut_verb
 	var/cut_sound
 
-	if(istype(item,/obj/item/weapon/weldingtool))
+	if(isWelder(item))
 		var/obj/item/weapon/weldingtool/WT = item
 		if(!WT.isOn())
 			return 0
@@ -888,14 +892,12 @@ About the new airlock wires panel:
 			"<span class='notice'>\The [user] begins [cut_verb] through [src]'s bolts.</span>",
 			"<span class='notice'>You begin [cut_verb] through the door bolts.</span>"
 			)
-		to_chat(usr, "You begin [cut_verb] through the door bolts.")
 		playsound(src, cut_sound, 100, 1)
 		if (do_after(user, cut_delay, src))
 			user.visible_message(
 				"<span class='notice'>\The [user] severs the door bolts, unlocking [src].</span>",
 				"<span class='notice'>You sever the door bolts, unlocking the door.</span>"
 				)
-			to_chat(user, "You sever the door bolts, unlocking the door.")
 			src.lock_cut_state = BOLTS_CUT
 			src.unlock(1) //force it
 		return 1
@@ -941,7 +943,7 @@ About the new airlock wires panel:
 			..()
 		return
 
-	if(!repairing && (istype(C, /obj/item/weapon/weldingtool) && !( src.operating > 0 ) && src.density))
+	if(!repairing && isWelder(C) && !( src.operating > 0 ) && src.density)
 		var/obj/item/weapon/weldingtool/W = C
 		if(W.remove_fuel(0,user))
 			src.welding_in_progress = 1
@@ -964,7 +966,7 @@ About the new airlock wires panel:
 			return
 		else
 			return
-	else if(istype(C, /obj/item/weapon/screwdriver))
+	else if(isScrewdriver(C))
 		if (src.p_open)
 			if (stat & BROKEN)
 				to_chat(usr, "<span class='warning'>The panel is broken and cannot be closed.</span>")
@@ -973,16 +975,16 @@ About the new airlock wires panel:
 		else
 			src.p_open = 1
 		src.update_icon()
-	else if(istype(C, /obj/item/weapon/wirecutters))
+	else if(isWirecutter(C))
 		return src.attack_hand(user)
-	else if(istype(C, /obj/item/device/multitool))
+	else if(isMultitool(C))
 		return src.attack_hand(user)
 	else if(istype(C, /obj/item/device/assembly/signaler))
 		return src.attack_hand(user)
 	else if(istype(C, /obj/item/weapon/pai_cable))	// -- TLE
 		var/obj/item/weapon/pai_cable/cable = C
 		cable.plugin(src, user)
-	else if(!repairing && istype(C, /obj/item/weapon/crowbar))
+	else if(!repairing && isCrowbar(C))
 		if(src.p_open && (operating < 0 || (!operating && welded && !src.arePowerSystemsOn() && density && !src.locked)) && !brace)
 			playsound(src.loc, 'sound/items/Crowbar.ogg', 100, 1)
 			user.visible_message("[user] removes the electronics from the airlock assembly.", "You start to remove electronics from the airlock assembly.")
@@ -1306,3 +1308,13 @@ About the new airlock wires panel:
 	if(brace)
 		to_chat(usr, "\The [brace] is installed on \the [src], preventing it from opening.")
 		to_chat(usr, brace.examine_health())
+
+/obj/machinery/door/airlock/autoname
+	name = "hatch"
+	icon = 'icons/obj/doors/Doorhatchmaint2.dmi'
+	assembly_type = /obj/structure/door_assembly/door_assembly_mhatch
+
+/obj/machinery/door/airlock/autoname/New()
+	var/area/A = get_area(src)
+	name = A.name
+	..()

@@ -265,7 +265,7 @@
 			return 0
 		if(istype(W,/obj/item/tk_grab))
 			return 0
-		if(istype(W, /obj/item/weapon/weldingtool))
+		if(isWelder(W))
 			var/obj/item/weapon/weldingtool/WT = W
 			if(WT.isOn())
 				slice_into_parts(WT, user)
@@ -297,7 +297,7 @@
 			open()
 	else if(istype(W, /obj/item/weapon/packageWrap))
 		return
-	else if(istype(W, /obj/item/weapon/weldingtool) && (setup & CLOSET_CAN_BE_WELDED))
+	else if(isWelder(W) && (setup & CLOSET_CAN_BE_WELDED))
 		var/obj/item/weapon/weldingtool/WT = W
 		if(!WT.remove_fuel(0,user))
 			if(!WT.isOn())
@@ -366,6 +366,12 @@
 	src.add_fingerprint(user)
 	if(!src.toggle())
 		to_chat(usr, "<span class='notice'>It won't budge!</span>")
+
+/obj/structure/closet/attack_ghost(mob/ghost)
+	if(ghost.client && ghost.client.inquisitive_ghost)
+		ghost.examinate(src)
+		if (!src.opened)
+			to_chat(ghost, "It contains: [english_list(contents)].")
 
 /obj/structure/closet/verb/verb_toggleopen()
 	set src in oview(1)
@@ -469,12 +475,12 @@
 	return
 
 // If we use the /obj/structure/closet/proc/togglelock variant BYOND asks the user to select an input for id_card, which is then mostly irrelevant.
-/obj/structure/closet/proc/togglelock_verb(var/mob/user)
+/obj/structure/closet/proc/togglelock_verb()
 	set src in oview(1) // One square distance
 	set category = "Object"
 	set name = "Toggle Lock"
 
-	return togglelock(user)
+	return togglelock(usr)
 
 /obj/structure/closet/proc/togglelock(var/mob/user, var/obj/item/weapon/card/id/id_card)
 	if(!(setup & CLOSET_HAS_LOCK))

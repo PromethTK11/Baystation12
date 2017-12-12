@@ -29,13 +29,13 @@
 /datum/gear/ears/skrell/chains/New()
 	..()
 	var/list/chaintypes = list()
-	for(var/chain_style in typesof(/obj/item/clothing/ears/skrell/chain) - /obj/item/clothing/ears/skrell/colored/chain)
+	for(var/chain_style in subtypesof(/obj/item/clothing/ears/skrell/chain))
 		var/obj/item/clothing/ears/skrell/chain/chain = chain_style
 		chaintypes[initial(chain.name)] = chain
 	gear_tweaks += new/datum/gear_tweak/path(sortAssoc(chaintypes))
 
 /datum/gear/ears/skrell/colored/chain
-	display_name = "colored headtail chain (Skrell)"
+	display_name = "colored headtail chain, colour select (Skrell)"
 	path = /obj/item/clothing/ears/skrell/colored/chain
 	sort_category = "Xenowear"
 	whitelisted = list(SPECIES_SKRELL)
@@ -51,13 +51,13 @@
 /datum/gear/ears/skrell/bands/New()
 	..()
 	var/list/bandtypes = list()
-	for(var/band_style in typesof(/obj/item/clothing/ears/skrell/band) - /obj/item/clothing/ears/skrell/colored/band)
+	for(var/band_style in subtypesof(/obj/item/clothing/ears/skrell/band))
 		var/obj/item/clothing/ears/skrell/band/band = band_style
 		bandtypes[initial(band.name)] = band
 	gear_tweaks += new/datum/gear_tweak/path(sortAssoc(bandtypes))
 
 /datum/gear/ears/skrell/colored/band
-	display_name = "colored headtail bands (Skrell)"
+	display_name = "headtail bands, colour select (Skrell)"
 	path = /obj/item/clothing/ears/skrell/colored/band
 	sort_category = "Xenowear"
 	whitelisted = list(SPECIES_SKRELL)
@@ -65,7 +65,7 @@
 
 //Skrell Cloth
 /datum/gear/ears/skrell/cloth/male
-	display_name = "male colored headtail cloth (Skrell)"
+	display_name = "men's headtail cloth (Skrell)"
 	path = /obj/item/clothing/ears/skrell/cloth_male
 	sort_category = "Xenowear"
 	whitelisted = list(SPECIES_SKRELL)
@@ -76,7 +76,7 @@
 	gear_tweaks = list(new/datum/gear_tweak/color(valid_colors))
 
 /datum/gear/ears/skrell/cloth/female
-	display_name = "female colored headtail cloth (Skrell)"
+	display_name = "women's headtail cloth (Skrell)"
 	path = /obj/item/clothing/ears/skrell/cloth_female
 	sort_category = "Xenowear"
 	whitelisted = list(SPECIES_SKRELL)
@@ -97,7 +97,7 @@
 	path = /obj/item/clothing/mask/monitor
 	sort_category = "Xenowear"
 	whitelisted = list(SPECIES_IPC)
-	cost = 1
+	cost = 0
 
 /datum/gear/shoes/toeless
 	display_name = "toeless jackboots"
@@ -125,3 +125,80 @@
 	cost = 1
 	allowed_roles = list(/datum/job/engineer_contractor, /datum/job/engineer, /datum/job/mining, /datum/job/scientist_assistant, /datum/job/pathfinder, /datum/job/explorer)
 
+/datum/gear/eyes/tajblind/sec
+	display_name = "sleek veil (Tajara)"
+	path = /obj/item/clothing/glasses/sunglasses/sechud/tajblind
+	whitelisted = list(SPECIES_TAJARA)
+	sort_category = "Xenowear"
+	cost = 1
+	allowed_roles = SECURITY_ROLES
+
+/datum/gear/shoes/caligae
+	display_name = "caligae (Tajara)"
+	path = /obj/item/clothing/shoes/sandal/tajaran/caligae
+	sort_category = "Xenowear"
+
+/datum/gear/shoes/caligae/New()
+	..()
+	var/caligae = list()
+	caligae["no sock"] = /obj/item/clothing/shoes/sandal/tajaran/caligae
+	caligae["black sock"] = /obj/item/clothing/shoes/sandal/tajaran/caligae/black
+	caligae["grey sock"] = /obj/item/clothing/shoes/sandal/tajaran/caligae/grey
+	caligae["white sock"] = /obj/item/clothing/shoes/sandal/tajaran/caligae/white
+	gear_tweaks += new/datum/gear_tweak/path(caligae)
+
+// Pre-modified gloves
+
+/datum/gear/gloves/colored/modified
+	display_name = "modified gloves, colored"
+	path = /obj/item/clothing/gloves/color/modified
+	sort_category = "Xenowear"
+	whitelisted = list(SPECIES_TAJARA, SPECIES_UNATHI)
+
+/datum/gear/gloves/latex/modified
+	display_name = "modified gloves, latex"
+	path = /obj/item/clothing/gloves/latex/modified
+	sort_category = "Xenowear"
+	whitelisted = list(SPECIES_TAJARA, SPECIES_UNATHI)
+
+/datum/gear/gloves/nitrile/modified
+	display_name = "modified gloves, nitrile"
+	path = /obj/item/clothing/gloves/latex/nitrile/modified
+	sort_category = "Xenowear"
+	whitelisted = list(SPECIES_TAJARA, SPECIES_UNATHI)
+
+/datum/gear/gloves/rainbow/modified
+	display_name = "modified gloves, rainbow"
+	path = /obj/item/clothing/gloves/rainbow/modified
+	sort_category = "Xenowear"
+	whitelisted = list(SPECIES_TAJARA, SPECIES_UNATHI)
+
+/datum/gear/gloves/evening/modified
+	display_name = "modified gloves, evening"
+	path = /obj/item/clothing/gloves/color/evening/modified
+	sort_category = "Xenowear"
+	whitelisted = list(SPECIES_TAJARA, SPECIES_UNATHI)
+
+/datum/gear/gloves/botany/modified
+	display_name = "modified gloves, botany"
+	path = /obj/item/clothing/gloves/thick/botany/modified
+	sort_category = "Xenowear"
+	whitelisted = list(SPECIES_TAJARA, SPECIES_UNATHI)
+
+/datum/gear/gloves/dress/modified
+	display_name = "modified gloves, dress"
+	path = /obj/item/clothing/gloves/color/white/modified
+	sort_category = "Xenowear"
+	whitelisted = list(SPECIES_TAJARA, SPECIES_UNATHI)
+
+/datum/gear/gloves/duty/modified
+	display_name = "modified gloves, duty"
+	path = /obj/item/clothing/gloves/duty/modified
+	sort_category = "Xenowear"
+	whitelisted = list(SPECIES_TAJARA, SPECIES_UNATHI)
+
+/datum/gear/gloves/work/modified
+	display_name = "modified gloves, work"
+	path = /obj/item/clothing/gloves/thick/modified
+	sort_category = "Xenowear"
+	whitelisted = list(SPECIES_TAJARA, SPECIES_UNATHI)

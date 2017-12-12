@@ -33,7 +33,6 @@
 		spawn( 0 )
 			src.Entered(AM)
 			return
-	turfs |= src
 
 	if(dynamic_lighting)
 		luminosity = 0
@@ -41,7 +40,6 @@
 		luminosity = 1
 
 /turf/Destroy()
-	turfs -= src
 	remove_cleanables()
 	..()
 	return QDEL_HINT_IWILLGC
@@ -181,7 +179,7 @@ var/const/enterloopsanity = 100
 
 /turf/proc/AdjacentTurfs(var/check_blockage = TRUE)
 	. = list()
-	for(var/turf/t in oview(src,1))
+	for(var/turf/t in (trange(1,src) - src))
 		if(check_blockage)
 			if(!t.density)
 				if(!LinkBlocked(src, t) && !TurfBlockedNonWindow(t))

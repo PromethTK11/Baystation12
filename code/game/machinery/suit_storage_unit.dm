@@ -597,7 +597,7 @@
 /obj/machinery/suit_storage_unit/attackby(obj/item/I as obj, mob/user as mob)
 	if(!src.ispowered)
 		return
-	if(istype(I, /obj/item/weapon/screwdriver))
+	if(isScrewdriver(I))
 		src.panelopen = !src.panelopen
 		playsound(src.loc, 'sound/items/Screwdriver.ogg', 100, 1)
 		to_chat(user, text("<span class='notice'>You [] the unit's maintenance panel.</span>",(src.panelopen ? "open up" : "close") ))
@@ -808,7 +808,7 @@
 	departments = list("Mercenary")
 	species = list(SPECIES_HUMAN,SPECIES_TAJARA,SPECIES_SKRELL,SPECIES_UNATHI)
 	can_repair = 1
-	
+
 /obj/machinery/suit_cycler/pilot
 	name = "Pilot suit cycler"
 	model_text = "Pilot"
@@ -826,7 +826,7 @@
 			return
 
 	//Hacking init.
-	if(istype(I, /obj/item/device/multitool) || istype(I, /obj/item/weapon/wirecutters))
+	if(isMultitool(I) || isWirecutter(I))
 		if(panel_open)
 			attack_hand(user)
 		return
@@ -862,7 +862,7 @@
 			src.updateUsrDialog()
 
 			return
-	else if(istype(I,/obj/item/weapon/screwdriver))
+	else if(isScrewdriver(I))
 
 		panel_open = !panel_open
 		to_chat(user, "You [panel_open ?  "open" : "close"] the maintenance panel.")
@@ -1056,7 +1056,7 @@
 	src.updateUsrDialog()
 	return
 
-/obj/machinery/suit_cycler/process()
+/obj/machinery/suit_cycler/Process()
 
 	if(electrified > 0)
 		electrified--
@@ -1216,6 +1216,15 @@
 					slot_l_hand_str = "atmos_voidsuit",
 					slot_r_hand_str = "atmos_voidsuit",
 				)
+		if("Explorer")
+			if(helmet)
+				helmet.name = "exploration voidsuit helmet"
+				helmet.icon_state = "helm_explorer"
+				helmet.item_state = "helm_explorer"
+			if(suit)
+				suit.name = "exploration voidsuit"
+				suit.icon_state = "void_explorer"
+
 		if("^%###^%$" || "Mercenary")
 			if(helmet)
 				helmet.name = "blood-red voidsuit helmet"

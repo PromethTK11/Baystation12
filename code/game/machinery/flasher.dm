@@ -47,7 +47,7 @@
 
 //Don't want to render prison breaks impossible
 /obj/machinery/flasher/attackby(obj/item/weapon/W as obj, mob/user as mob)
-	if (istype(W, /obj/item/weapon/wirecutters))
+	if(isWirecutter(W))
 		add_fingerprint(user)
 		src.disable = !src.disable
 		if (src.disable)
@@ -83,7 +83,7 @@
 			var/mob/living/carbon/human/H = O
 			if(!H.eyecheck() <= 0)
 				continue
-			flash_time *= H.species.flash_mod
+			flash_time = round(H.species.flash_mod * flash_time)
 			var/obj/item/organ/internal/eyes/E = H.internal_organs_by_name[BP_EYES]
 			if(!E)
 				return
@@ -94,7 +94,10 @@
 			if(!O.blinded && isliving(O))
 				var/mob/living/L = O
 				L.flash_eyes()
-		O.Weaken(flash_time)
+		O.flash_eyes()
+		O.confused += (flash_time + 2)
+		O.Stun(flash_time / 2)
+		O.Weaken(3)
 
 /obj/machinery/flasher/emp_act(severity)
 	if(stat & (BROKEN|NOPOWER))
@@ -114,7 +117,7 @@
 			src.flash()
 
 /obj/machinery/flasher/portable/attackby(obj/item/weapon/W as obj, mob/user as mob)
-	if (istype(W, /obj/item/weapon/wrench))
+	if(isWrench(W))
 		add_fingerprint(user)
 		src.anchored = !src.anchored
 
@@ -140,7 +143,7 @@
 	active = 1
 	icon_state = "launcheract"
 
-	for(var/obj/machinery/flasher/M in GLOB.machines)
+	for(var/obj/machinery/flasher/M in SSmachines.machinery)
 		if(M.id == src.id)
 			spawn()
 				M.flash()

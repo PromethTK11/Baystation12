@@ -122,6 +122,9 @@
 				material_string += ".<br></td>"
 				//Build list of multipliers for sheets.
 				if(R.is_stack)
+					var/obj/item/stack/R_stack = R.path
+					max_sheets = min(max_sheets, initial(R_stack.max_amount))
+					//do not allow lathe to print more sheets than the max amount that can fit in one stack
 					if(max_sheets && max_sheets > 0)
 						multiplier_string  += "<br>"
 						for(var/i = 5;i<max_sheets;i*=2) //5,10,20,40...
@@ -164,7 +167,7 @@
 
 	if(panel_open)
 		//Don't eat multitools or wirecutters used on an open lathe.
-		if(istype(O, /obj/item/device/multitool) || istype(O, /obj/item/weapon/wirecutters))
+		if(isMultitool(O) || isWirecutter(O))
 			attack_hand(user)
 			return
 
@@ -277,6 +280,28 @@
 			to_chat(usr, "<span class='notice'>The autolathe queue is full, please wait for the previous operation to finish before adding a new one.</span>")
 			return
 
+		//Consume materials.
+		for(var/material in making.resources)
+			if(!isnull(stored_material[material]))
+				stored_material[material] = max(0, stored_material[material] - round(making.resources[material] * mat_efficiency) * multiplier)
+
+		//Fancy autolathe animation.
+		flick("autolathe_n", src)
+
+		sleep(build_time)
+
+		busy = 0
+		update_use_power(1)
+
+		//Sanity check.
+		if(!making || !src) return
+
+		//Create the desired item.
+		var/obj/item/I = new making.path(loc)
+		if(multiplier > 1 && istype(I, /obj/item/stack))
+			var/obj/item/stack/S = I
+			S.amount = multiplier
+			S.update_icon()
 
 	updateUsrDialog()
 

@@ -16,7 +16,7 @@
 	gluttonous = GLUT_TINY
 
 	spawn_flags = SPECIES_CAN_JOIN
-	appearance_flags = HAS_HAIR_COLOR | HAS_SKIN_TONE | HAS_LIPS | HAS_UNDERWEAR | HAS_EYE_COLOR
+	appearance_flags = HAS_HAIR_COLOR | HAS_SKIN_TONE_NORMAL | HAS_LIPS | HAS_UNDERWEAR | HAS_EYE_COLOR
 
 /datum/species/human/get_bodytype(var/mob/living/carbon/human/H)
 	return SPECIES_HUMAN
@@ -81,6 +81,7 @@
 	primitive_form = "Stok"
 	darksight = 3
 	gluttonous = GLUT_TINY
+	strength = STR_HIGH
 	slowdown = 0.5
 	brute_mod = 0.8
 	num_alternate_languages = 2
@@ -108,7 +109,7 @@
 	spawn_flags = SPECIES_CAN_JOIN | SPECIES_IS_WHITELISTED
 	appearance_flags = HAS_HAIR_COLOR | HAS_LIPS | HAS_UNDERWEAR | HAS_SKIN_COLOR | HAS_EYE_COLOR
 
-	flesh_color = "#34AF10"
+	flesh_color = "#34af10"
 
 	reagent_tag = IS_UNATHI
 	base_color = "#066000"
@@ -154,14 +155,15 @@
 	name_language = LANGUAGE_SIIK_MAAS
 	health_hud_intensity = 1.75
 
-	min_age = 17
-	max_age = 80
+	min_age = 19
+	max_age = 140
 
-	blurb = "The Tajaran race is a species of feline-like bipeds hailing from the planet of Ahdomai in the \
-	S'randarr system. They have been brought up into the space age by the Humans and Skrell, and have been \
-	influenced heavily by their long history of Slavemaster rule. They have a structured, clan-influenced way \
-	of family and politics. They prefer colder environments, and speak a variety of languages, mostly Siik'Maas, \
-	using unique inflections their mouths form."
+	blurb = "The Tajaran are a species of furred mammalian bipeds hailing from the chilly planet of Ahdomai \
+	in the Zamsiin-lr system. They are a naturally superstitious species, with the new generations growing up with tales \
+	of the heroic struggles of their forebears against the Overseers. This spirit has led them forward to the \
+	reconstruction and advancement of their society to what they are today. Their pride for the struggles they \
+	went through is heavily tied to their spiritual beliefs. Recent discoveries have jumpstarted the progression \
+	of highly advanced cybernetic technology, causing a culture shock within Tajaran society."
 
 	cold_level_1 = 200 //Default 260
 	cold_level_2 = 140 //Default 200
@@ -176,9 +178,9 @@
 	spawn_flags = SPECIES_CAN_JOIN | SPECIES_IS_WHITELISTED
 	appearance_flags = HAS_HAIR_COLOR | HAS_LIPS | HAS_UNDERWEAR | HAS_SKIN_COLOR | HAS_EYE_COLOR
 
-	flesh_color = "#AFA59E"
+	flesh_color = "#afa59e"
 	base_color = "#333333"
-	blood_color = "#862A51"
+	blood_color = "#862a51"
 
 	reagent_tag = IS_TAJARA
 
@@ -222,8 +224,8 @@
 	spawn_flags = SPECIES_CAN_JOIN | SPECIES_IS_WHITELISTED
 	appearance_flags = HAS_HAIR_COLOR | HAS_LIPS | HAS_UNDERWEAR | HAS_SKIN_COLOR
 
-	flesh_color = "#8CD7A3"
-	blood_color = "#1D2CBF"
+	flesh_color = "#8cd7a3"
+	blood_color = "#1d2cbf"
 	base_color = "#006666"
 
 	cold_level_1 = 280 //Default 260 - Lower is better
@@ -264,6 +266,7 @@
 	siemens_coefficient = 0.3
 	show_ssd = "completely quiescent"
 	num_alternate_languages = 2
+	strength = STR_VHIGH
 	secondary_langs = list(LANGUAGE_ROOTGLOBAL)
 	name_language = LANGUAGE_ROOTLOCAL
 	spawns_with_stack = 0
@@ -324,10 +327,10 @@
 
 	flags = NO_SCAN | IS_PLANT | NO_PAIN | NO_SLIP
 	appearance_flags = 0
-	spawn_flags = SPECIES_CAN_JOIN | SPECIES_IS_WHITELISTED | SPECIES_NO_FBP_CONSTRUCTION | SPECIES_NO_FBP_CHARGEN
+	spawn_flags = SPECIES_CAN_JOIN | SPECIES_IS_WHITELISTED | SPECIES_NO_FBP_CONSTRUCTION | SPECIES_NO_FBP_CHARGEN | SPECIES_NO_LACE
 
 	blood_color = "#004400"
-	flesh_color = "#907E4A"
+	flesh_color = "#907e4a"
 
 	reagent_tag = IS_DIONA
 	genders = list(PLURAL)
@@ -351,10 +354,10 @@
 	return 0
 
 /datum/species/diona/equip_survival_gear(var/mob/living/carbon/human/H)
-	if(H.backbag == 1)
-		H.equip_to_slot_or_del(new /obj/item/device/flashlight/flare(H), slot_r_hand)
-	else
+	if(istype(H.get_equipped_item(slot_back), /obj/item/weapon/storage/backpack))
 		H.equip_to_slot_or_del(new /obj/item/device/flashlight/flare(H.back), slot_in_backpack)
+	else
+		H.equip_to_slot_or_del(new /obj/item/device/flashlight/flare(H), slot_r_hand)
 
 /datum/species/diona/handle_post_spawn(var/mob/living/carbon/human/H)
 	H.gender = NEUTER
@@ -374,3 +377,50 @@
 
 /datum/species/diona/get_blood_name()
 	return "sap"
+
+/datum/species/diona/handle_environment_special(var/mob/living/carbon/human/H)
+	if(H.in_stasis || H.stat == DEAD)
+		return
+	if(H.nutrition < 10)
+		H.take_overall_damage(2,0)
+	else if (H.innate_heal)
+		// Heals normal damage.
+		if(H.getBruteLoss())
+			H.adjustBruteLoss(-4)
+			H.nutrition -= 2
+		if(H.getFireLoss())
+			H.adjustFireLoss(-4)
+			H.nutrition -= 2
+
+		if(prob(10) && H.nutrition > 200 && !H.getBruteLoss() && !H.getFireLoss())
+			var/obj/item/organ/external/head/D = H.organs_by_name["head"]
+			if (D.disfigured)
+				D.disfigured = 0
+				H.nutrition -= 20
+
+		for(var/obj/item/organ/I in H.internal_organs)
+			if(I.damage > 0)
+				I.damage = max(I.damage - 2, 0)
+				H.nutrition -= 2
+				if (prob(1))
+					to_chat(H, "<span class='warning'>You sense your [I.name] regenerating...</span>")
+
+		if (prob(10) && H.nutrition > 70)
+			for(var/limb_type in has_limbs)
+				var/obj/item/organ/external/E = H.organs_by_name[limb_type]
+				if(E && !E.is_usable())
+					E.removed()
+					qdel(E)
+					E = null
+				if(!E)
+					var/list/organ_data = has_limbs[limb_type]
+					var/limb_path = organ_data["path"]
+					var/obj/item/organ/O = new limb_path(src)
+					organ_data["descriptor"] = O.name
+					to_chat(H, "<span class='warning'>Some of your nymphs split and hurry to reform your [O.name].</span>")
+					H.nutrition -= 60
+					H.update_body()
+				else
+					for(var/datum/wound/W in E.wounds)
+						if (W.wound_damage() == 0 && prob(50))
+							E.wounds -= W

@@ -191,6 +191,12 @@ proc/listclearnulls(list/list)
 	for(var/i in L)
 		. |= i
 
+// Return a list of the values in an assoc list (including null)
+/proc/list_values(var/list/L)
+	. = list()
+	for(var/e in L)
+		. += L[e]
+
 //Mergesort: divides up the list into halves to begin the sort
 /proc/sortKey(var/list/client/L, var/order = 1)
 	if(isnull(L) || L.len < 2)
@@ -241,45 +247,6 @@ proc/listclearnulls(list/list)
 	if(Li <= L.len)
 		return (result + L.Copy(Li, 0))
 	return (result + R.Copy(Ri, 0))
-
-
-
-
-//Mergesort: Specifically for record datums in a list.
-/proc/sortRecord(var/list/datum/data/record/L, var/field = "name", var/order = 1)
-	if(isnull(L))
-		return list()
-	if(L.len < 2)
-		return L
-	var/middle = L.len / 2 + 1
-	return mergeRecordLists(sortRecord(L.Copy(0, middle), field, order), sortRecord(L.Copy(middle), field, order), field, order)
-
-//Mergsort: does the actual sorting and returns the results back to sortRecord
-/proc/mergeRecordLists(var/list/datum/data/record/L, var/list/datum/data/record/R, var/field = "name", var/order = 1)
-	var/Li=1
-	var/Ri=1
-	var/list/result = new()
-	if(!isnull(L) && !isnull(R))
-		while(Li <= L.len && Ri <= R.len)
-			var/datum/data/record/rL = L[Li]
-			if(isnull(rL))
-				L -= rL
-				continue
-			var/datum/data/record/rR = R[Ri]
-			if(isnull(rR))
-				R -= rR
-				continue
-			if(sorttext(rL.fields[field], rR.fields[field]) == order)
-				result += L[Li++]
-			else
-				result += R[Ri++]
-
-		if(Li <= L.len)
-			return (result + L.Copy(Li, 0))
-	return (result + R.Copy(Ri, 0))
-
-
-
 
 //Mergesort: any value in a list
 /proc/sortList(var/list/L)
@@ -670,6 +637,15 @@ proc/dd_sortedTextList(list/incoming)
 		group_list[key] = values
 
 	values += value
+	
+/proc/duplicates(var/list/L)
+	. = list()
+	var/list/checked = list()
+	for(var/value in L)
+		if(value in checked)
+			. |= value
+		else
+			checked += value
 
 /proc/assoc_by_proc(var/list/plain_list, var/get_initial_value)
 	. = list()
@@ -734,3 +710,13 @@ proc/dd_sortedTextList(list/incoming)
 			L.Swap(start++,end--)
 
 	return L
+
+//Copies a list, and all lists inside it recusively
+//Does not copy any other reference type
+/proc/deepCopyList(list/l)
+	if(!islist(l))
+		return l
+	. = l.Copy()
+	for(var/i = 1 to l.len)
+		if(islist(.[i]))
+			.[i] = .(.[i])

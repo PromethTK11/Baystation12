@@ -53,6 +53,9 @@
 	var/base_miss_chance = 20          // Chance of missing.
 	var/genetic_degradation = 0
 
+	//Forensics stuff
+	var/list/autopsy_data = list()    // Trauma data for forensics.
+
 	// Joint/state stuff.
 	var/can_grasp                      // It would be more appropriate if these two were named "affects_grasp" and "affects_stand" at this point
 	var/can_stand                      // Modifies stance tally/ability to stand.
@@ -67,9 +70,11 @@
 	var/artery_name = "artery"         // Flavour text for cartoid artery, aorta, etc.
 	var/arterial_bleed_severity = 1    // Multiplier for bleeding in a limb.
 	var/tendon_name = "tendon"         // Flavour text for Achilles tendon, etc.
+	var/cavity_name = "cavity"
 
 	// Surgery vars.
-	var/hatch = 0
+	var/cavity_max_w_class = 0
+	var/hatch_state = 0
 	var/stage = 0
 	var/cavity = 0
 	var/atom/movable/applied_pressure
@@ -85,8 +90,7 @@
 	if(owner)
 		replaced(owner)
 		sync_colour_to_human(owner)
-	spawn(1)
-		get_icon()
+	get_icon()
 
 /obj/item/organ/external/Destroy()
 
@@ -117,6 +121,9 @@
 		owner.organs_by_name -= organ_tag
 		while(null in owner.organs)
 			owner.organs -= null
+
+	if(autopsy_data)    autopsy_data.Cut()
+
 	return ..()
 
 /obj/item/organ/external/emp_act(severity)
@@ -129,8 +136,15 @@
 		if (3)
 			burn_damage = 3
 	burn_damage *= robotic/burn_mod //ignore burn mod for EMP damage
+
+	var/power = 4 - severity //stupid reverse severity
+	for(var/obj/item/I in implants)
+		if(I.flags & CONDUCT)
+			burn_damage += I.w_class * rand(power, 3*power)
+
 	if(burn_damage)
-		take_damage(0, burn_damage)
+		owner.custom_pain("Something inside your [src] burns a [severity < 2 ? "bit" : "lot"]!", power * 15) //robotic organs won't feel it anyway
+		take_damage(0, burn_damage, 0, used_weapon = "Hot metal")
 
 /obj/item/organ/external/attack_self(var/mob/user)
 	if(!contents.len)
@@ -180,7 +194,7 @@
 				stage++
 				return
 		if(2)
-			if(W.sharp || istype(W,/obj/item/weapon/hemostat) || istype(W,/obj/item/weapon/wirecutters))
+			if(W.sharp || istype(W,/obj/item/weapon/hemostat) || isWirecutter(W))
 				var/list/organs = get_contents_recursive()
 				if(organs.len)
 					var/obj/item/removing = pick(organs)
@@ -190,6 +204,9 @@
 					current_child.internal_organs.Remove(removing)
 
 					status |= ORGAN_CUT_AWAY
+					if(istype(removing, /obj/item/organ/internal/mmi_holder))
+						var/obj/item/organ/internal/mmi_holder/O = removing
+						removing = O.transfer_and_delete()
 
 					removing.forceMove(get_turf(user))
 
@@ -307,7 +324,7 @@
 		else return 0
 
 	if(!damage_amount)
-		if(src.hatch != 2)
+		if(src.hatch_state != HATCH_OPENED)
 			to_chat(user, "<span class='notice'>Nothing to fix!</span>")
 		return 0
 
@@ -467,8 +484,7 @@ This function completely restores a damaged organ to perfect condition.
 			   PROCESSING & UPDATING
 ****************************************************/
 
-//external organs handle brokenness a bit differently when it comes to damage. Instead brute_dam is checked inside process()
-//this also ensures that an external organ cannot be "broken" without broken_description being set.
+//external organs handle brokenness a bit differently when it comes to damage.
 /obj/item/organ/external/is_broken()
 	return ((status & ORGAN_CUT_AWAY) || ((status & ORGAN_BROKEN) && !splinted))
 
@@ -489,7 +505,7 @@ This function completely restores a damaged organ to perfect condition.
 		return 1
 	return 0
 
-/obj/item/organ/external/process()
+/obj/item/organ/external/Process()
 	if(owner)
 
 		if(pain)
@@ -500,13 +516,6 @@ This function completely restores a damaged organ to perfect condition.
 		// Process wounds, doing healing etc. Only do this every few ticks to save processing power
 		if(owner.life_tick % wound_update_accuracy == 0)
 			update_wounds()
-
-		//Chem traces slowly vanish
-		if(owner.life_tick % 10 == 0)
-			for(var/chemID in trace_chemicals)
-				trace_chemicals[chemID] = trace_chemicals[chemID] - 1
-				if(trace_chemicals[chemID] <= 0)
-					trace_chemicals.Remove(chemID)
 
 		//Infections
 		update_germs()
@@ -630,7 +639,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 		// slow healing
 		var/heal_amt = 0
 		// if damage >= 50 AFTER treatment then it's probably too severe to heal within the timeframe of a round.
-		if (!owner.chem_effects[CE_TOXIN] && W.can_autoheal() && W.wound_damage() < 50)
+		if (!owner.chem_effects[CE_TOXIN] && W.can_autoheal() && W.wound_damage() && brute_ratio < 0.5 && burn_ratio < 0.5)
 			heal_amt += 0.5
 
 		//we only update wounds once in [wound_update_accuracy] ticks so have to emulate realtime
@@ -641,7 +650,11 @@ Note that amputating the affected organ does in fact remove the infection from t
 		heal_amt = heal_amt / (wounds.len + 1)
 		// making it look prettier on scanners
 		heal_amt = round(heal_amt,0.1)
-		W.heal_damage(heal_amt)
+		var/dam_type = BRUTE
+		if(W.damage_type == BURN)
+			dam_type = BURN
+		if(owner.can_autoheal(dam_type))
+			W.heal_damage(heal_amt)
 
 		// Salving also helps against infection
 		if(W.germ_level > 0 && W.salved && prob(2))
@@ -777,6 +790,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 			stump.name = "stump of \a [name]"
 			stump.artery_name = "mangled [artery_name]"
 			stump.arterial_bleed_severity = arterial_bleed_severity
+			stump.add_pain(max_damage)
 			if(robotic >= ORGAN_ROBOT)
 				stump.robotize()
 			stump.wounds |= W
@@ -1004,7 +1018,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 		if(!keep_organs)
 			for(var/obj/item/organ/thing in internal_organs)
 				if(istype(thing))
-					if(thing.vital)
+					if(thing.vital || thing.robotic >= ORGAN_ROBOT)
 						continue
 					internal_organs -= thing
 					owner.internal_organs_by_name[thing.organ_tag] = null
@@ -1027,7 +1041,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	return 0
 
 /obj/item/organ/external/is_usable()
-	return ..() && !(status & ORGAN_TENDON_CUT) && (!can_feel_pain() || pain < pain_disability_threshold)
+	return ..() && !(status & ORGAN_TENDON_CUT) && (!can_feel_pain() || get_pain() < pain_disability_threshold) && brute_ratio < 1 && burn_ratio < 1
 
 /obj/item/organ/external/proc/is_malfunctioning()
 	return ((robotic >= ORGAN_ROBOT) && (brute_dam + burn_dam) >= 10 && prob(brute_dam + burn_dam))
@@ -1204,8 +1218,11 @@ Note that amputating the affected organ does in fact remove the infection from t
 					descriptors += "some burns"
 				if(21 to INFINITY)
 					descriptors += pick("a lot of burns","severe melting")
-		if(hatch)
-			descriptors += "an open panel"
+		switch(hatch_state)
+			if(HATCH_UNSCREWED)
+				descriptors += "a closed but unsecured panel"
+			if(HATCH_OPENED)
+				descriptors += "an open panel"
 
 		return english_list(descriptors)
 
@@ -1338,4 +1355,16 @@ Note that amputating the affected organ does in fact remove the infection from t
 		to_chat(target, "<span class='danger'>You feel extreme pain!</span>")
 
 		var/max_halloss = round(target.species.total_health * 0.8 * ((100 - armor) / 100)) //up to 80% of passing out, further reduced by armour
-		target.adjustHalLoss(Clamp(0, max_halloss - target.getHalLoss(), 30))
+		add_pain(Clamp(0, max_halloss - target.getHalLoss(), 30))
+
+//Adds autopsy data for used_weapon.
+/obj/item/organ/external/proc/add_autopsy_data(var/used_weapon, var/damage)
+	var/datum/autopsy_data/W = autopsy_data[used_weapon]
+	if(!W)
+		W = new()
+		W.weapon = used_weapon
+		autopsy_data[used_weapon] = W
+
+	W.hits += 1
+	W.damage += damage
+	W.time_inflicted = world.time

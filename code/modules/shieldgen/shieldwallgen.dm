@@ -118,7 +118,7 @@
 	power = 1	// IVE GOT THE POWER!
 	return 1
 
-/obj/machinery/shieldwallgen/process()
+/obj/machinery/shieldwallgen/Process()
 	power = 0
 	if(!(stat & BROKEN))
 		power()
@@ -198,7 +198,7 @@
 
 
 /obj/machinery/shieldwallgen/attackby(obj/item/W, mob/user)
-	if(istype(W, /obj/item/weapon/wrench))
+	if(isWrench(W))
 		if(active)
 			to_chat(user, "Turn off the field generator first.")
 			return
@@ -303,7 +303,7 @@
 	user.do_attack_animation(src)
 	playsound(loc, 'sound/weapons/smash.ogg', 75, 1)
 
-/obj/machinery/shieldwall/process()
+/obj/machinery/shieldwall/Process()
 	if(needs_power)
 		if(isnull(gen_primary)||isnull(gen_secondary))
 			qdel(src)

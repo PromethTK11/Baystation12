@@ -49,9 +49,9 @@
 	frequency = ENT_FREQ
 	canhear_range = 4
 
-/obj/item/device/radio/intercom/New()
-	..()
-	GLOB.processing_objects += src
+/obj/item/device/radio/intercom/Initialize()
+	. = ..()
+	START_PROCESSING(SSobj, src)
 
 /obj/item/device/radio/intercom/department/medbay/Initialize()
 	. = ..()
@@ -94,7 +94,7 @@
 	internal_channels[num2text(RAID_FREQ)] = list(access_syndicate)
 
 /obj/item/device/radio/intercom/Destroy()
-	GLOB.processing_objects -= src
+	STOP_PROCESSING(SSobj, src)
 	return ..()
 
 /obj/item/device/radio/intercom/attack_ai(mob/user as mob)
@@ -122,7 +122,7 @@
 
 	return canhear_range
 
-/obj/item/device/radio/intercom/process()
+/obj/item/device/radio/intercom/Process()
 	if(((world.timeofday - last_tick) > 30) || ((world.timeofday - last_tick) < 0))
 		last_tick = world.timeofday
 
@@ -144,21 +144,20 @@
 	broadcasting = 1
 
 /obj/item/device/radio/intercom/locked
-    var/locked_frequency
+	var/locked_frequency
 
-/obj/item/device/radio/intercom/locked/set_frequency(var/frequency)
-	if(frequency == locked_frequency)
-		..(locked_frequency)
+/obj/item/device/radio/intercom/locked/set_frequency()
+	..(locked_frequency)
 
 /obj/item/device/radio/intercom/locked/list_channels()
 	return ""
 
 /obj/item/device/radio/intercom/locked/ai_private
 	name = "\improper AI intercom"
-	frequency = AI_FREQ
+	locked_frequency = AI_FREQ
 	broadcasting = 1
 	listening = 1
 
 /obj/item/device/radio/intercom/locked/confessional
 	name = "confessional intercom"
-	frequency = 1480
+	locked_frequency = 1480

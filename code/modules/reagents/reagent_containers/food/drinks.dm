@@ -26,6 +26,11 @@
 	to_chat(user, "<span class='notice'>You open \the [src] with an audible pop!</span>")
 	flags |= OPENCONTAINER
 
+/obj/item/weapon/reagent_containers/food/drinks/cans/waterbottle/open(mob/user)
+	playsound(loc,'sound/effects/bonebreak1.ogg', rand(10,50), 1)
+	to_chat(user, "<span class='notice'>You twist open \the [src], destroying the safety seal!</span>")
+	flags |= OPENCONTAINER
+
 /obj/item/weapon/reagent_containers/food/drinks/attack(mob/M as mob, mob/user as mob, def_zone)
 	if(force && !(flags & NOBLUDGEON) && user.a_intent == I_HURT)
 		return ..()
@@ -359,10 +364,10 @@
 	flags = CONDUCT | OPENCONTAINER
 
 /obj/item/weapon/reagent_containers/food/drinks/coffeecup/STC
-	name = "STC coffee cup"
-	desc = "A coffee cup adorned with the flag of the Sovereign Terran Confederacy, for when you need some espionage charges to go with your morning coffee."
+	name = "TCC coffee cup"
+	desc = "A coffee cup adorned with the flag of the Terran Colonial Confederation, for when you need some espionage charges to go with your morning coffee."
 	icon_state = "coffeecup_STC"
-	base_name = "STC cup"
+	base_name = "TCC cup"
 
 /obj/item/weapon/reagent_containers/food/drinks/coffeecup/pawn
 	name = "pawn coffee cup"

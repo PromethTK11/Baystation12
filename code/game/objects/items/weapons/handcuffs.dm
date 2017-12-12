@@ -18,13 +18,14 @@
 	var/cuff_sound = 'sound/weapons/handcuffs.ogg'
 	var/cuff_type = "handcuffs"
 
-/obj/item/weapon/handcuffs/get_mob_overlay(mob/user_mob, slot)
-	var/image/ret = ..()
+
+
+/obj/item/weapon/handcuffs/get_icon_state(mob/user_mob, slot)
 	if(slot == slot_handcuffed_str)
-		ret.icon_state = "handcuff1"
+		return "handcuff1"
 	if(slot == slot_legcuffed_str)
-		ret.icon_state = "legcuff1"
-	return ret
+		return "legcuff1"
+	return ..()
 
 /obj/item/weapon/handcuffs/attack(var/mob/living/carbon/C, var/mob/living/user)
 
@@ -128,28 +129,28 @@ var/last_chew = 0
 	elastic = 1
 
 /obj/item/weapon/handcuffs/cable/red
-	color = "#DD0000"
+	color = "#dd0000"
 
 /obj/item/weapon/handcuffs/cable/yellow
-	color = "#DDDD00"
+	color = "#dddd00"
 
 /obj/item/weapon/handcuffs/cable/blue
-	color = "#0000DD"
+	color = "#0000dd"
 
 /obj/item/weapon/handcuffs/cable/green
-	color = "#00DD00"
+	color = "#00dd00"
 
 /obj/item/weapon/handcuffs/cable/pink
-	color = "#DD00DD"
+	color = "#dd00dd"
 
 /obj/item/weapon/handcuffs/cable/orange
-	color = "#DD8800"
+	color = "#dd8800"
 
 /obj/item/weapon/handcuffs/cable/cyan
-	color = "#00DDDD"
+	color = "#00dddd"
 
 /obj/item/weapon/handcuffs/cable/white
-	color = "#FFFFFF"
+	color = "#ffffff"
 
 /obj/item/weapon/handcuffs/cable/attackby(var/obj/item/I, mob/user as mob)
 	..()

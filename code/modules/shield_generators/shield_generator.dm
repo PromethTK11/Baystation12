@@ -124,7 +124,7 @@
 	upkeep_multiplier = new_upkeep
 
 
-/obj/machinery/power/shield_generator/process()
+/obj/machinery/power/shield_generator/Process()
 	upkeep_power_usage = 0
 	power_usage = 0
 
@@ -174,7 +174,7 @@
 
 
 /obj/machinery/power/shield_generator/attackby(obj/item/O as obj, mob/user as mob)
-	if(panel_open && (istype(O, /obj/item/device/multitool) || istype(O, /obj/item/weapon/wirecutters)))
+	if(panel_open && isMultitool(O) || isWirecutter(O))
 		attack_hand(user)
 		return
 

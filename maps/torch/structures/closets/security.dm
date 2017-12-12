@@ -14,7 +14,7 @@
 
 /obj/structure/closet/secure_closet/security_torch/WillContain()
 	return list(
-		/obj/item/clothing/suit/storage/vest/solgov/security,
+		/obj/item/clothing/suit/armor/pcarrier/medium/security,
 		/obj/item/clothing/head/helmet/solgov/security,
 		/obj/item/weapon/cartridge/security,
 		/obj/item/device/radio/headset/headset_sec,
@@ -50,7 +50,7 @@
 
 /obj/structure/closet/secure_closet/cos/WillContain()
 	return list(
-		/obj/item/clothing/suit/storage/vest/solgov/command,
+		/obj/item/clothing/suit/armor/pcarrier/medium/command/security,
 		/obj/item/clothing/head/helmet/solgov/command,
 		/obj/item/clothing/head/HoS/dermal,
 		/obj/item/weapon/cartridge/hos,
@@ -62,7 +62,9 @@
 		/obj/item/device/flash,
 		/obj/item/device/megaphone,
 		/obj/item/weapon/melee/baton/loaded,
-		/obj/item/weapon/gun/energy/gun,
+		/obj/item/weapon/gun/projectile/colt/officer,
+		/obj/item/ammo_magazine/c45m,
+		/obj/item/ammo_magazine/c45m,
 		/obj/item/clothing/accessory/holster/thigh,
 		/obj/item/weapon/melee/telebaton,
 		/obj/item/weapon/reagent_containers/spray/pepper,
@@ -90,7 +92,7 @@
 
 /obj/structure/closet/secure_closet/brigofficer/WillContain()
 	return list(
-		/obj/item/clothing/suit/storage/vest/solgov/security,
+		/obj/item/clothing/suit/armor/pcarrier/medium/security,
 		/obj/item/clothing/head/helmet/solgov/security,
 		/obj/item/weapon/cartridge/hos,
 		/obj/item/device/radio/headset/headset_sec,
@@ -131,7 +133,7 @@
 		/obj/item/device/radio/headset/headset_sec,
 		/obj/item/clothing/suit/armor/vest/detective,
 		/obj/item/clothing/head/helmet/solgov/security,
-		/obj/item/clothing/suit/storage/vest/solgov/security,
+		/obj/item/clothing/suit/armor/pcarrier/medium/security,
 		/obj/item/weapon/gun/energy/taser,
 		/obj/item/clothing/accessory/holster/thigh,
 		/obj/item/device/flash,

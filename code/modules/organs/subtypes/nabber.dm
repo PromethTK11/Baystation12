@@ -23,7 +23,7 @@
 
 /obj/item/organ/internal/eyes/nabber/additional_flash_effects(var/intensity)
 	if(is_usable())
-		take_damage(max(0, 8 * (intensity)))
+		take_damage(max(0, 6 * (intensity)))
 		return 1
 	else
 		return -1
@@ -44,10 +44,10 @@
 		to_chat(owner, "<span class='notice'>Your protective lenses retract out of the way.</span>")
 		innate_flash_protection = FLASH_PROTECTION_VULNERABLE
 		owner.eye_blind = min(2, owner.eye_blind)
-		process()
+		Process()
 		owner.update_icons()
 
-/obj/item/organ/internal/eyes/nabber/process()
+/obj/item/organ/internal/eyes/nabber/Process()
 	if(eyes_shielded)
 		owner.eye_blind = 20
 	..()
@@ -60,35 +60,41 @@
 	var/dexalin_level = 10
 	var/phoron_level = 0.5
 
-/obj/item/organ/internal/phoron/process()
-	var amount = 0.1
-	if(is_broken())
-		amount *= 0.5
-	else if(is_bruised())
-		amount *= 0.1
+/obj/item/organ/internal/phoron/Process()
+	if(owner)
+		var amount = 0.1
+		if(is_broken())
+			amount *= 0.5
+		else if(is_bruised())
+			amount *= 0.1
 
-	var/dexalin_volume_raw = owner.reagents.get_reagent_amount(/datum/reagent/dexalin)
-	var/phoron_volume_raw = owner.reagents.get_reagent_amount(/datum/reagent/toxin/phoron)
+		var/dexalin_volume_raw = owner.reagents.get_reagent_amount(/datum/reagent/dexalin)
+		var/phoron_volume_raw = owner.reagents.get_reagent_amount(/datum/reagent/toxin/phoron)
 
-	if((dexalin_volume_raw < dexalin_level || !dexalin_volume_raw) && (phoron_volume_raw < phoron_level || !phoron_volume_raw))
-		owner.reagents.add_reagent(/datum/reagent/toxin/phoron, amount)
+		if((dexalin_volume_raw < dexalin_level || !dexalin_volume_raw) && (phoron_volume_raw < phoron_level || !phoron_volume_raw))
+			owner.reagents.add_reagent(/datum/reagent/toxin/phoron, amount)
 	..()
 
 /obj/item/organ/internal/liver/nabber
 	name = "acetone reactor"
 	var/acetone_level = 20
 
-/obj/item/organ/internal/liver/nabber/process()
-	var amount = 0.8
-	if(is_broken())
-		amount *= 0.5
-	else if(is_bruised())
-		amount *= 0.1
 
-	var/acetone_volume_raw = owner.reagents.get_reagent_amount(/datum/reagent/acetone)
+/obj/item/organ/internal/liver/nabber/Process()
+	if(owner)
+		var amount = 0.8
+		if(is_broken())
+			amount *= 0.5
+		else if(is_bruised())
+			amount *= 0.1
 
-	if((acetone_volume_raw < acetone_level || !acetone_volume_raw) && owner.breath_fail_ratio < 0.25)
-		owner.reagents.add_reagent(/datum/reagent/acetone, amount)
+		var/acetone_volume_raw = owner.reagents.get_reagent_amount(/datum/reagent/acetone)
+		var/breath_fail_ratio = 1
+		var/obj/item/organ/internal/lungs/nabber/totally_not_lungs_I_swear = owner.internal_organs_by_name[BP_TRACH]
+		if(totally_not_lungs_I_swear)
+			breath_fail_ratio = totally_not_lungs_I_swear.breath_fail_ratio
+		if((acetone_volume_raw < acetone_level || !acetone_volume_raw) && breath_fail_ratio < 0.25)
+			owner.reagents.add_reagent(/datum/reagent/acetone, amount)
 	..()
 
 // These are not actually lungs and shouldn't be thought of as such despite the claims of the parent.
@@ -110,10 +116,10 @@
 
 	H.adjustOxyLoss(-(HUMAN_MAX_OXYLOSS * owner.chem_effects[CE_OXYGENATED]))
 
-	if(H.breath_fail_ratio < 0.25 && owner.chem_effects[CE_OXYGENATED])
+	if(breath_fail_ratio < 0.25 && owner.chem_effects[CE_OXYGENATED])
 		H.oxygen_alert = 0
-	if(H.breath_fail_ratio >= 0.25)
-		H.adjustOxyLoss(HUMAN_MAX_OXYLOSS * H.breath_fail_ratio)
+	if(breath_fail_ratio >= 0.25 && (damage || world.time > last_failed_breath + 2 MINUTES))
+		H.adjustOxyLoss(HUMAN_MAX_OXYLOSS * breath_fail_ratio)
 		if(owner.chem_effects[CE_OXYGENATED])
 			H.oxygen_alert = 1
 		else
@@ -130,7 +136,7 @@
 	parent_organ = BP_CHEST
 
 
-/obj/item/organ/internal/brain/nabber/process()
+/obj/item/organ/internal/brain/nabber/Process()
 	if(!owner || !owner.should_have_organ(BP_HEART))
 		return
 
@@ -171,6 +177,7 @@
 
 /obj/item/organ/external/groin/nabber
 	name = "abdomen"
+	icon_position = UNDER
 	s_col_blend = ICON_MULTIPLY
 
 /obj/item/organ/external/arm/nabber
@@ -187,7 +194,7 @@
 
 /obj/item/organ/external/leg/nabber
 	name = "left tail side"
-	icon_position = 0
+	icon_position = LEFT
 	s_col_blend = ICON_MULTIPLY
 
 /obj/item/organ/external/leg/right/nabber
@@ -196,11 +203,12 @@
 
 /obj/item/organ/external/foot/nabber
 	name = "left tail tip"
-	icon_position = 0
+	icon_position = LEFT
 	s_col_blend = ICON_MULTIPLY
 
 /obj/item/organ/external/foot/right/nabber
 	name = "right tail tip"
+	icon_position = RIGHT
 	s_col_blend = ICON_MULTIPLY
 
 /obj/item/organ/external/hand/nabber
@@ -217,5 +225,6 @@
 	name = "head"
 	eye_icon = "eyes_nabber"
 	eye_icon_location = 'icons/mob/nabber_face.dmi'
+	vital = 0
 	has_lips = 0
 	s_col_blend = ICON_MULTIPLY

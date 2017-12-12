@@ -93,12 +93,6 @@
 
 /obj/item/weapon/gun/update_twohanding()
 	if(one_hand_penalty)
-		var/mob/living/M = loc
-		if(istype(M))
-			if(M.can_wield_item(src) && src.is_held_twohanded(M))
-				name = "[initial(name)] (wielded)"
-			else
-				name = initial(name)
 		update_icon() // In case item_state is set somewhere else.
 	..()
 
@@ -157,7 +151,7 @@
 		return
 
 	if(user && user.a_intent == I_HELP) //regardless of what happens, refuse to shoot if help intent is on
-		to_chat(user, "<span class='warning'>You refrain from firing your [src] as your intent is set to help.</span>")
+		to_chat(user, "<span class='warning'>You refrain from firing \the [src] as your intent is set to help.</span>")
 	else
 		Fire(A,user,params) //Otherwise, fire normally.
 

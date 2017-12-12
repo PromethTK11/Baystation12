@@ -118,7 +118,9 @@
 	to_chat(user, "***** INSTALLATION SELF-DESTRUCT SEQUENCE INITIATED *****")
 	to_chat(user, "Self-destructing in 5 minutes. Use this command again to abort.")
 	user.bombing_station = 1
-	set_security_level("delta")
+
+	var/decl/security_state/security_state = decls_repository.get_decl(GLOB.using_map.security_state)
+	security_state.set_security_level(security_state.severe_security_level, TRUE)
 	radio.autosay("Self destruct sequence has been activated. Self-destructing in 5 minutes.", "Self-Destruct Control")
 
 	var/timer = 300
@@ -126,11 +128,14 @@
 		sleep(10)
 		if(!user || !user.bombing_station || user.stat == DEAD)
 			radio.autosay("Self destruct sequence has been cancelled.", "Self-Destruct Control")
+			to_chat(user, "** Self destruct sequence has been cancelled **")
 			return
 		if(timer in list(2, 3, 4, 5, 10, 30, 60, 90, 120, 180, 240)) // Announcement times. "1" is not intentionally included!
 			radio.autosay("Self destruct in [timer] seconds.", "Self-Destruct Control")
+			to_chat(user, "** Self destructing in [timer] **")
 		if(timer == 1)
 			radio.autosay("Self destructing now. Have a nice day.", "Self-Destruct Control")
+			to_chat(user, "** Self destructing now **")
 		timer--
 
 	SetUniversalState(/datum/universal_state/nuclear_explosion/malf, arguments=list(user)) //TODO: find the station nuclear device and use that

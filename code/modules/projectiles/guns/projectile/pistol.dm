@@ -8,6 +8,11 @@
 	origin_tech = list(TECH_COMBAT = 2, TECH_MATERIAL = 2)
 	load_method = MAGAZINE
 
+/obj/item/weapon/gun/projectile/colt/officer
+	name = "military .45 pistol"
+	desc = "The WT45 - a mass produced kinetic sidearm well-known in films and entertainment programming for being the daily carry choice issued to officers of the Sol Central Government Defense Forces. Uses .45 rounds."
+	icon_state = "usp"
+
 /obj/item/weapon/gun/projectile/sec
 	name = ".45 pistol"
 	desc = "The NT Mk58 is a cheap, ubiquitous sidearm, produced by a NanoTrasen subsidiary. Found pretty much everywhere humans are. Uses .45 rounds."
@@ -59,6 +64,8 @@
 	item_state = "revolver"
 	force = 14.0
 	caliber = ".50"
+	fire_delay = 12
+	screen_shake = 2
 	load_method = MAGAZINE
 	magazine_type = /obj/item/ammo_magazine/a50
 	allowed_magazines = /obj/item/ammo_magazine/a50
@@ -225,7 +232,7 @@
 		buildstate++
 		update_icon()
 		return
-	else if(isscrewdriver(thing) && buildstate == 3)
+	else if(isScrewdriver(thing) && buildstate == 3)
 		user.visible_message("<span class='notice'>\The [user] secures the trigger assembly with \the [thing].</span>")
 		playsound(loc, 'sound/items/Screwdriver.ogg', 50, 1)
 		var/obj/item/weapon/gun/projectile/pirate/zipgun

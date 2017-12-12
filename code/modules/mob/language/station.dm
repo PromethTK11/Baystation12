@@ -193,12 +193,12 @@
 
 /datum/language/confederate
 	name = LANGUAGE_INDEPENDENT
-	desc = "The official language of the Terran Confederacy, evolved from the languages of Eastern Europe and Northern Asia."
+	desc = "The official language of the Terran Colonial Confederation, evolved from a pidgin of Eastern European languages and English."
 	speech_verb = "speaks"
 	colour = "terran"
 	key = "r"
 	syllables = list("rus","zem","ave","groz","ski","ska","ven","konst","pol","lin","svy",
-	"danya","da","mied","zan","das","krem","myka","cyka","blyat","to","st","no","na","ni",
+	"danya","da","mied","zan","das","krem","myka","to","st","no","na","ni",
 	"ko","ne","en","po","ra","li","on","byl","cto","eni","ost","ol","ego","ver","stv","pro")
 
 /datum/language/nabber
