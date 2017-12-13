@@ -218,7 +218,7 @@
 	minimal_player_age = 5
 	economic_modifier = 7
 	ideal_character_age = 40
-	outfit_type = /decl/hierarchy/outfit/job/torch/crew/service/solgov_pilot
+	outfit_type = /decl/hierarchy/outfit/job/torch/crew/command/bridgeofficer
 
 	access = list(access_maint_tunnels, access_external_airlocks, access_emergency_storage, access_solgov_crew,access_aquila, access_aquila_helm,
 						access_expedition_shuttle, access_expedition_shuttle_helm, access_guppy, access_guppy_helm, access_hangar, access_solgov_crew, access_heads)
@@ -235,7 +235,7 @@
 	minimal_player_age = 7
 	economic_modifier = 7
 	ideal_character_age = 35
-	outfit_type = /decl/hierarchy/outfit/job/torch/crew/service/pathfinder
+	outfit_type = /decl/hierarchy/outfit/job/torch/crew/command/bridgeofficer
 
 	access = list(access_maint_tunnels, access_heads, access_emergency_storage, access_tech_storage,  access_cargo, access_guppy_helm,
 						access_cargo_bot, access_solgov_crew, access_expedition_shuttle, access_guppy, access_hangar)
@@ -250,7 +250,7 @@
 	selection_color = "#515151"
 	minimal_player_age = 4
 	ideal_character_age = 20
-	outfit_type = /decl/hierarchy/outfit/job/torch/crew/service/explorer
+	outfit_type = /decl/hierarchy/outfit/job/torch/crew/command/bridgeofficer
 
 	access = list(access_maint_tunnels, access_emergency_storage, access_cargo, access_guppy_helm,
 						access_cargo_bot, access_solgov_crew, access_expedition_shuttle, access_guppy, access_hangar)
@@ -457,7 +457,7 @@
 	supervisors = "the Chief Medical Officer"
 	economic_modifier = 5
 	ideal_character_age = 40
-	outfit_type = /decl/hierarchy/outfit/job/torch/crew/medical/chemist
+	outfit_type = /decl/hierarchy/outfit/job/torch/crew/medical/contractor
 
 	access = list(access_medical, access_medical_equip, access_chemistry)
 	minimal_access = list()

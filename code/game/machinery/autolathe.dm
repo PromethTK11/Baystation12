@@ -10,7 +10,6 @@
 	clicksound = "keyboard"
 	clickvol = 30
 
-	var/list/datum/autolathe/recipe/recipes_on_queue = list()
 	var/list/machine_recipes
 	var/list/stored_material =  list(DEFAULT_WALL_MATERIAL = 0, "glass" = 0)
 	var/list/storage_capacity = list(DEFAULT_WALL_MATERIAL = 0, "glass" = 0)
@@ -22,7 +21,6 @@
 	var/busy = 0
 
 	var/mat_efficiency = 1
-	var/max_items_on_queue = 3
 	var/build_time = 50
 
 	var/datum/wires/autolathe/wires = null
@@ -46,15 +44,6 @@
 	qdel(wires)
 	wires = null
 	return ..()
-
-/obj/machinery/autolathe/process()
-	if(stat & (BROKEN|NOPOWER))
-		return
-	if(recipes_on_queue.len)
-		if(round(mat_efficiency) < 1)
-			ProduceRecipe(pop(recipes_on_queue), 1)	//"pop" to take the first element
-		else
-			ProduceRecipe(pop(recipes_on_queue), round(mat_efficiency))	//"pop" to take the first element
 
 /obj/machinery/autolathe/proc/update_recipe_list()
 	if(!machine_recipes)
@@ -83,15 +72,6 @@
 			material_bottom += "<td width = '25%' align = center>[stored_material[material]]<b>/[storage_capacity[material]]</b></td>"
 
 		dat += "[material_top]</tr>[material_bottom]</tr></table><hr>"
-		// The queue thing
-		dat += "<h3>Current queue <a href='?src=\ref[src];RFQ=1'>(Remove first)</a>:</h3>"
-		for(var/datum/autolathe/recipe/R in recipes_on_queue)
-			dat += "[R.name] "
-		if(recipes_on_queue.len)
-			dat += "<= (NEXT)"
-
-		dat += "<hr>"
-		// End of queue
 		dat += "<h2>Printable Designs</h2><h3>Showing: <a href='?src=\ref[src];change_category=1'>[show_category]</a>.</h3></center><table width = '100%'>"
 
 		var/index = 0
@@ -141,11 +121,7 @@
 
 		dat += "<hr>"
 
-	var/datum/browser/BROWSER = new(user, "autolathe", 0, 440, 560)
-	BROWSER.add_content(dat)
-	BROWSER.open()
-
-//	user << browse(dat, "window=autolathe")
+	user << browse(dat, "window=autolathe")
 	onclose(user, "autolathe")
 
 /obj/machinery/autolathe/attackby(var/obj/item/O as obj, var/mob/user as mob)
@@ -244,8 +220,7 @@
 	usr.set_machine(src)
 	add_fingerprint(usr)
 
-	// Exceptions for adding to queue and removing from queue
-	if(busy && !href_list["make"] && !href_list["RFQ"])
+	if(busy)
 		to_chat(usr, "<span class='notice'>The autolathe is busy. Please wait for completion of previous operation.</span>")
 		return
 
@@ -254,9 +229,6 @@
 		var/choice = input("Which category do you wish to display?") as null|anything in autolathe_categories+"All"
 		if(!choice) return
 		show_category = choice
-
-	if(href_list["RFQ"])
-		pop(recipes_on_queue)
 
 	if(href_list["make"] && machine_recipes)
 
@@ -274,11 +246,14 @@
 			log_admin("EXPLOIT : [key_name(usr)] tried to exploit an autolathe to duplicate an item!")
 			return
 
-		if(!(recipes_on_queue.len > max_items_on_queue))
-			recipes_on_queue.Add(making)
-		else
-			to_chat(usr, "<span class='notice'>The autolathe queue is full, please wait for the previous operation to finish before adding a new one.</span>")
-			return
+		busy = 1
+		update_use_power(2)
+
+		//Check if we still have the materials.
+		for(var/material in making.resources)
+			if(!isnull(stored_material[material]))
+				if(stored_material[material] < round(making.resources[material] * mat_efficiency) * multiplier)
+					return
 
 		//Consume materials.
 		for(var/material in making.resources)
@@ -322,7 +297,6 @@
 	storage_capacity["glass"] = mb_rating  * 12500
 	build_time = 50 / man_rating
 	mat_efficiency = 1.1 - man_rating * 0.1// Normally, price is 1.25 the amount of material, so this shouldn't go higher than 0.8. Maximum rating of parts is 3
-	max_items_on_queue = 3 + man_rating * 3		// The better the manipulator, the more queue (+3 per manipulator level)
 
 /obj/machinery/autolathe/dismantle()
 
@@ -337,36 +311,3 @@
 			qdel(S)
 	..()
 	return 1
-
-/obj/machinery/autolathe/proc/ProduceRecipe(var/datum/autolathe/recipe/making, var/multiplier)
-
-	busy = 1
-	update_use_power(2)
-
-	//Check if we still have the materials.
-	for(var/material in making.resources)
-		if(!isnull(stored_material[material]))
-			if(stored_material[material] < round(making.resources[material] * mat_efficiency) * multiplier)
-				return
-
-		//Consume materials.
-	for(var/material in making.resources)
-		if(!isnull(stored_material[material]))
-			stored_material[material] = max(0, stored_material[material] - round(making.resources[material] * mat_efficiency) * multiplier)
-
-		//Fancy autolathe animation.
-	flick("autolathe_n", src)
-
-	sleep(build_time)
-
-	busy = 0
-	update_use_power(1)
-
-	//Sanity check.
-	if(!making || !src) return
-
-	//Create the desired item.
-	var/obj/item/I = new making.path(loc)
-	if(multiplier > 1 && istype(I, /obj/item/stack))
-		var/obj/item/stack/S = I
-		S.amount = multiplier
