@@ -1,6 +1,9 @@
+/obj/effect/floor_decal
+	icon = 'maps/utopia/flooring/decals.dmi'
+
 //Bunker decals
 /obj/effect/floor_decal/newcorner
-	icon = 'icons/turf/flooring/misc.dmi'
+	icon = 'maps/utopia/flooring/misc.dmi'
 
 /obj/effect/floor_decal/newcorner/red
 	icon_state = "red"
