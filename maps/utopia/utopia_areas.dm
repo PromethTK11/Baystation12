@@ -30,6 +30,11 @@
 /area/shuttle/merchant/away
 	name = "\improper Merchant Van - Station Side"
 
+/area/ship/scrap/shuttle/lift
+  name = "\improper Cargo Lift"
+  icon_state = "shuttle3"
+  base_turf = /turf/simulated/open
+
 // Command
 /area/crew_quarters/heads/chief
 	name = "\improper Engineering - CE's Office"
