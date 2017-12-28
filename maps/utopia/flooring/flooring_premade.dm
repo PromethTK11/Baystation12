@@ -38,3 +38,15 @@
 	name = "floor"
 	icon = 'maps/utopia/flooring/bunk.dmi'
 	icon_state = "polar"
+
+/turf/simulated/floor/tiled/ramp
+	name = "foot ramp"
+	icon = 'maps/utopia/flooring/tiles.dmi'
+	icon_state = "ramptop"
+	initial_flooring = /decl/flooring/reinforced/ramp
+
+/turf/simulated/floor/tiled/ramp/bottom
+	name = "foot ramp"
+	icon = 'maps/utopia/flooring/tiles.dmi'
+	icon_state = "rampbot"
+	initial_flooring = /decl/flooring/reinforced/ramp/bottom

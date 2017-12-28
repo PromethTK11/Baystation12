@@ -2493,6 +2493,7 @@
 #include "maps\torch\structures\signs.dm"
 #include "maps\utopia\utopia.dm"
 #include "maps\utopia\utopia_define.dm"
+#include "maps\utopia\flooring\flooring.dm"
 #include "maps\utopia\flooring\flooring_decals.dm"
 #include "maps\utopia\flooring\flooring_premade.dm"
 #include "maps\~mapsystem\map_preferences.dm"

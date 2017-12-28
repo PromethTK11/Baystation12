@@ -122,7 +122,7 @@
 /obj/effect/shuttle_landmark/lift/bottom
 	name = "Lower Deck"
 	landmark_tag = "nav_bearcat_lift_bottom"
-	base_area = /area/ship/scrap/cargo/lower
+	base_area = /area/quartermaster/miningdock
 	base_turf = /turf/simulated/floor
 
 
