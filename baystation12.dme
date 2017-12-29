@@ -2496,6 +2496,7 @@
 #include "maps\utopia\flooring\flooring.dm"
 #include "maps\utopia\flooring\flooring_decals.dm"
 #include "maps\utopia\flooring\flooring_premade.dm"
+#include "maps\utopia\flooring\tile_types.dm"
 #include "maps\~mapsystem\map_preferences.dm"
 #include "maps\~mapsystem\map_ranks.dm"
 #include "maps\~mapsystem\maps.dm"
@@ -2506,8 +2507,5 @@
 #include "maps\~unit_tests\unit_testing.dm"
 #include "San_Additions\barra_do.dm"
 #include "San_Additions\cure_steps.dm"
-#include "San_Additions\Parallax\define.dm"
-#include "San_Additions\Parallax\parallax.dm"
-#include "San_Additions\Parallax\parallax_archivos_secundarios.dm"
 #include "~code\global_init.dm"
 // END_INCLUDE

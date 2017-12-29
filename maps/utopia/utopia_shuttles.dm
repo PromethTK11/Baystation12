@@ -94,6 +94,7 @@
 	landmark_tag = "nav_specops_residen"
 */
 
+//Cargo Lift
 /datum/shuttle/autodock/ferry/lift
 	name = "Cargo Lift"
 	shuttle_area = /area/ship/scrap/shuttle/lift
@@ -164,6 +165,8 @@
 	name = "minig"
 	landmark_tag = "nav_cargo_station"
 	docking_controller = "cargo_bay"
+	base_area = /area/mine/explored
+	base_turf = /turf/simulated/asteroid
 
 //Emergency shuttle
 

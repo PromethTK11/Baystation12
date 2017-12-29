@@ -1,7 +1,7 @@
 
 /datum/map/utopia
 	name = "Utopia"
-	full_name = "Space Station Utopia"
+	full_name = "NCS Cordelia"
 	path = "utopia"
 
 	lobby_icon = 'maps/utopia/utopia_lobby.dmi'
@@ -14,8 +14,8 @@
 
 	allowed_spawns = list("Arrivals Shuttle")
 
-	station_name  = "Space Station Utopia"
-	station_short = "Utopia"
+	station_name  = "Space Station Cordelia"
+	station_short = "Cordelia"
 	dock_name     = "NTTM1-54 Relay"
 	boss_name     = "Colonial Magistrate Council"
 	boss_short    = "Council"

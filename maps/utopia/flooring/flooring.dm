@@ -5,6 +5,7 @@
 	icon_base = "plating"
 	has_damage_range = null
 	flags = TURF_REMOVE_CROWBAR
+	build_type = /obj/item/stack/tile/bunker
 
 /decl/flooring/tiling/bunker/hydro
 	name = "floor"
@@ -12,6 +13,7 @@
 	icon_base = "hydro"
 	has_damage_range = null
 	flags = TURF_REMOVE_CROWBAR
+	build_type = /obj/item/stack/tile/floor_hydro
 
 /decl/flooring/tiling/bunker/showroom
 	name = "floor"
@@ -19,6 +21,7 @@
 	icon_base = "hydro"
 	has_damage_range = null
 	flags = TURF_REMOVE_CROWBAR
+	build_type = /obj/item/stack/tile/floor_showroom
 
 /decl/flooring/tiling/bunker/cafe
 	name = "floor"
@@ -26,6 +29,7 @@
 	icon_base = "cafe"
 	has_damage_range = null
 	flags = TURF_REMOVE_CROWBAR
+	build_type = /obj/item/stack/tile/floor_cafe
 
 /decl/flooring/tiling/bunker/yellow
 	name = "floor"
@@ -33,6 +37,7 @@
 	icon_base = "old_tile_cargo"
 	has_damage_range = null
 	flags = TURF_REMOVE_CROWBAR
+	build_type = /obj/item/stack/tile/yellow
 
 /decl/flooring/tiling/bunker/black
 	name = "floor"
@@ -40,6 +45,7 @@
 	icon_base = "old_tile_black"
 	has_damage_range = null
 	flags = TURF_REMOVE_CROWBAR
+	build_type = /obj/item/stack/tile/black
 
 /decl/flooring/tiling/bunker/red
 	name = "floor"
@@ -47,6 +53,7 @@
 	icon_base = "old_tile_red"
 	has_damage_range = null
 	flags = TURF_REMOVE_CROWBAR
+	build_type = /obj/item/stack/tile/red
 
 /decl/flooring/tiling/bunker/polar
 	name = "floor"
@@ -54,6 +61,7 @@
 	icon_base = "polar"
 	has_damage_range = null
 	flags = TURF_REMOVE_CROWBAR
+	build_type = /obj/item/stack/tile/polar
 
 /decl/flooring/reinforced/ramp
 	name = "foot ramp"
