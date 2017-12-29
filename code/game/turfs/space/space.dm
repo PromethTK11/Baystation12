@@ -14,7 +14,7 @@
 /turf/space/Initialize()
 	. = ..()
 	if((icon_state == "0") && (!keep_sprite))
-		icon_state = "white" // - tiene que ser "white" para el Parallax
+		icon_state = "[((x + y) ^ ~(x * y)) % 25]"
 	update_starlight()
 	if(!HasBelow(z))
 		return
