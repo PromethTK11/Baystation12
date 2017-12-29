@@ -2505,6 +2505,5 @@
 #include "maps\~mapsystem\maps_unit_testing.dm"
 #include "maps\~unit_tests\unit_testing.dm"
 #include "San_Additions\barra_do.dm"
-#include "San_Additions\cure_steps.dm"
 #include "~code\global_init.dm"
 // END_INCLUDE
