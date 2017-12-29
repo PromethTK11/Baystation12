@@ -146,7 +146,6 @@
 	landmark_tag = "nav_cargo_station"
 	docking_controller = "cargo_bay"
 
-/*
 //Mining shuttle
 /datum/shuttle/autodock/ferry/mining
 	name = "Supply"
@@ -165,7 +164,6 @@
 	name = "minig"
 	landmark_tag = "nav_cargo_station"
 	docking_controller = "cargo_bay"
-*/
 
 //Emergency shuttle
 
