@@ -4,7 +4,7 @@ var/global/list/stool_cache = list() //haha stool
 /obj/item/weapon/stool
 	name = "stool"
 	desc = "Apply butt."
-	icon = 'maps/dreyfus/icons/furniture.dmi'
+	icon = 'icons/obj/furniture.dmi'
 	icon_state = "stool_preview" //set for the map
 	item_state = "stool"
 	randpixel = 0
