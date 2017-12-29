@@ -490,7 +490,7 @@
 "jv" = (/obj/machinery/telecomms/processor/preset_cent,/turf/simulated/floor/tiled/dark,/area/centcom/specops)
 "jw" = (/obj/machinery/telecomms/bus/preset_cent,/turf/simulated/floor/tiled/dark,/area/centcom/specops)
 "jx" = (/obj/machinery/atmospherics/pipe/simple/visible,/obj/machinery/access_button{command = "cycle_interior"; frequency = 1331; master_tag = "vox_west_control"; pixel_x = -22; req_one_access = list(150)},/turf/simulated/floor/plating,/area/skipjack_station/start)
-"jy" = (/obj/structure/table/rack,/obj/item/weapon/gun/energy/ionrifle,/obj/item/weapon/material/harpoon,/obj/item/clothing/suit/space/void/merc/prepared,/obj/item/clothing/suit/space/void/engineering/prepared,/obj/item/weapon/tank/oxygen,/obj/item/weapon/tank/oxygen,/obj/item/weapon/rig/light/stealth,/turf/simulated/floor/plating,/area/skipjack_station/start)
+"jy" = (/obj/structure/table/rack,/obj/item/weapon/gun/energy/ionrifle,/obj/item/weapon/material/harpoon,/obj/item/clothing/suit/space/void/engineering/prepared,/obj/item/weapon/tank/oxygen,/obj/item/weapon/tank/oxygen,/obj/item/weapon/rig/light/stealth,/obj/item/clothing/suit/space/void/merc,/turf/simulated/floor/plating,/area/skipjack_station/start)
 "jz" = (/obj/machinery/microwave{pixel_x = -1; pixel_y = 8},/obj/structure/table/steel,/turf/simulated/floor/plating,/area/skipjack_station/start)
 "jA" = (/obj/item/seeds/potatoseed,/obj/item/seeds/potatoseed,/obj/item/seeds/ambrosiavulgarisseed,/obj/item/weapon/material/minihoe,/obj/item/weapon/beartrap,/obj/structure/table/steel,/turf/simulated/floor/plating,/area/skipjack_station/start)
 "jB" = (/obj/machinery/vending/hydroseeds,/turf/simulated/floor/plating,/area/skipjack_station/start)
