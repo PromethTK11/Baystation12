@@ -10,7 +10,7 @@
 /obj/structure/bed
 	name = "bed"
 	desc = "This is used to lie in, sleep in or strap on."
-	icon = 'maps/dreyfus/icons/furniture.dmi'
+	icon = 'icons/obj/furniture.dmi'
 	icon_state = "bed"
 	anchored = 1
 	can_buckle = 1
