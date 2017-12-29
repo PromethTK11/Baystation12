@@ -166,7 +166,7 @@
 	landmark_tag = "nav_cargo_station"
 	docking_controller = "cargo_bay"
 	base_area = /area/mine/explored
-	base_turf = /turf/simulated/asteroid
+	base_turf = /turf/simulated/floor/asteroid
 
 //Emergency shuttle
 

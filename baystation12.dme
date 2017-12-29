@@ -2496,7 +2496,6 @@
 #include "maps\utopia\flooring\flooring.dm"
 #include "maps\utopia\flooring\flooring_decals.dm"
 #include "maps\utopia\flooring\flooring_premade.dm"
-#include "maps\utopia\flooring\tile_types.dm"
 #include "maps\~mapsystem\map_preferences.dm"
 #include "maps\~mapsystem\map_ranks.dm"
 #include "maps\~mapsystem\maps.dm"
